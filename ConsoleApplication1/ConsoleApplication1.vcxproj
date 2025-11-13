@@ -20,14 +20,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BoardGame_Classes.h" />
-    <ClInclude Include="XO_Classes.h" />
+    <ClInclude Include="NumericalTicTacToe_Classes.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="dic.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="XO_Classes.cpp" />
-    <ClCompile Include="XO_Demo.cpp" />
+    <ClCompile Include="NumericalTicTacToe.cpp" />
+    <ClCompile Include="NumericalTicTacToe_Classes.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

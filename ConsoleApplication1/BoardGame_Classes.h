@@ -49,7 +49,8 @@ public:
      * @brief Construct a board with given dimensions.
      */
     Board(int rows, int columns)
-        : rows(rows), columns(columns), board(rows, vector<T>(columns)) {}
+        : rows(rows), columns(columns), board(rows, vector<T>(columns)) {
+    }
 
     /**
      * @brief Virtual destructor. Frees allocated board memory.
@@ -134,7 +135,8 @@ public:
      * @brief Construct a player with name, symbol, and type.
      */
     Player(string n, T s, PlayerType t)
-        : name(n), symbol(s), type(t), boardPtr(nullptr) {}
+        : name(n), symbol(s), type(t), boardPtr(nullptr) {
+    }
 
     virtual ~Player() {}
 

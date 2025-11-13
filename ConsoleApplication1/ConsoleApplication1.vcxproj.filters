@@ -18,7 +18,7 @@
     <ClInclude Include="BoardGame_Classes.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="XO_Classes.h">
+    <ClInclude Include="NumericalTicTacToe_Classes.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -28,10 +28,10 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="XO_Classes.cpp">
+    <ClCompile Include="NumericalTicTacToe.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="XO_Demo.cpp">
+    <ClCompile Include="NumericalTicTacToe_Classes.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
