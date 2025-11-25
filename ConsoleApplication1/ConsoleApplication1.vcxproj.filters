@@ -21,6 +21,9 @@
     <ClInclude Include="NumericalTicTacToe_Classes.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="InverseTicTacToe.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
     <ClInclude Include="PyramidXO_Classes.h">
       <Filter>Source Files</Filter>
     </ClInclude>
@@ -35,6 +38,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="NumericalTicTacToe_Classes.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="InverseTicTacToe.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PyramidXO_Classes.cpp">
