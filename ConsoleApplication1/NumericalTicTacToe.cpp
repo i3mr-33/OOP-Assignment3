@@ -10,6 +10,7 @@
 #include <cstdlib>
 #include <ctime>
 #include "NumericalTicTacToe_Classes.h"
+#include "InverseTicTacToe.h"
 
 using namespace std;
 
@@ -44,7 +45,39 @@ void playNumericalTicTacToe() {
 
     cout << "=== Game Finished ===\n\n";
 }
+void playInverseTicTacToe() {
+    cout << "\n=== Starting Inverse Tic-Tac-Toe ===\n";
+    srand(static_cast<unsigned int>(time(0)));  // Seed the random number generator
 
+    // Create an instance of the specific UI for X-O using a pointer 
+    UI<char>* game_ui = new InverseTicTacToe_UI();
+
+    // Create the game board. For X-O, this is an X_O_Board.
+    Board<char>* xo_board = new InverseTicTacToe_Board();
+
+    // Use the UI to set up the players for the game.
+    // The UI returns a dynamically allocated array of Player pointers.
+    Player<char>** players = game_ui->setup_players();
+
+    // Create the game manager with the board and the array of players.
+    GameManager<char> x_o_game(xo_board, players, game_ui);
+
+    // Run the game loop.
+    x_o_game.run();
+
+    // --- Cleanup ---
+    // Delete the dynamically allocated board object.
+    delete xo_board;
+
+    // Delete the individual player objects.
+    for (int i = 0; i < 2; ++i) {
+        delete players[i];
+    }
+    // Delete the dynamically allocated array of player pointers itself.
+    delete[] players;
+    delete game_ui;
+    cout << "=== Game Finished ===\n\n";
+}
 /**
  * @brief Displays the main menu
  *
@@ -56,9 +89,10 @@ void displayMenu() {
     cout << "             Part 1 - CS213            \n";
     cout << "=========================================\n";
     cout << "1. Play Numerical Tic-Tac-Toe (Game 9)\n";
-    cout << "2. Exit Program\n";
+    cout << "2. Play Inverse Tic-Tac-Toe (Game 5)\n";
+    cout << "3. Exit Program\n";
     cout << "=========================================\n";
-    cout << "Enter your choice (1-2): ";
+    cout << "Enter your choice (1-3): ";
 }
 
 /**
@@ -89,7 +123,10 @@ int main() {
         case 1:
             playNumericalTicTacToe();
             break;
-        case 2:
+        case 2 :
+            playInverseTicTacToe();
+            break;
+        case 3:
             cout << "\nThank you for playing FCAI Board Games!\n";
             cout << "Goodbye!\n";
             break;
