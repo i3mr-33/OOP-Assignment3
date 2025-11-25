@@ -24,6 +24,12 @@
     <ClInclude Include="SUSTicTacToe_Classes.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="InverseTicTacToe.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PyramidXO_Classes.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="dic.txt">
@@ -31,10 +37,16 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="NumericalTicTacToe_Classes.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="InverseTicTacToe.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PyramidXO_Classes.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SUSTicTacToe_Classes.cpp">
