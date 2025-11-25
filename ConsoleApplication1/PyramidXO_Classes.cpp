@@ -94,7 +94,8 @@ Move<char>* PyramidXO_UI::get_move(Player<char>* player) {
     return new Move<char>(x, y, player->get_symbol());
 }
 void PyramidXO_UI::display_board_matrix(const vector<vector<char>>& board) const {
-    cout << "\n----------------------------\n";
+    cout << "\n----------------------------\n\n";
+    cout << "\n          -----\n";
     for (int i = 0; i < 3; i++)
     {
 		string padding = "";
@@ -116,8 +117,13 @@ void PyramidXO_UI::display_board_matrix(const vector<vector<char>>& board) const
 				cout << "| " << cellValue << " |";
             }
         }
-        cout << "\n";
+		if (i == 0)
+			cout << "\n          -----\n";
+        if(i == 1)
+			cout << "\n     ---------------\n";
+        if(i == 2)
+        cout << "\n-------------------------\n";
 
     }
-	cout << "----------------------------\n";
+	cout << "\n\n----------------------------\n";
 }
