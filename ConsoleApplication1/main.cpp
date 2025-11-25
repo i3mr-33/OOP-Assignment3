@@ -1,26 +1,13 @@
-<<<<<<<< HEAD:ConsoleApplication1/main.cpp
-﻿
-========
-﻿/**
- * @file main.cpp
- * @brief Main menu for FCAI Board Games Collection - Part 1
- *
- * This file contains the main menu and game launcher for Part 1 of the assignment.
- * Part 1 includes one group game (Numerical Tic-Tac-Toe) with a simple menu system.
- */
->>>>>>>> ccf4a4eb145740024e83ffece95dbf290ec929c5:ConsoleApplication1/Main.cpp
+
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
 #include "NumericalTicTacToe_Classes.h"
-<<<<<<<< HEAD:ConsoleApplication1/main.cpp
 #include <memory>
 #include "SUSTicTacToe_Classes.h"
-
-========
 #include "InverseTicTacToe.h"
 #include "PyramidXO_Classes.h"
->>>>>>>> ccf4a4eb145740024e83ffece95dbf290ec929c5:ConsoleApplication1/Main.cpp
+
 using namespace std;
 
 
@@ -133,18 +120,12 @@ void displayMenu() {
     cout << "             Part 1 - CS213            \n";
     cout << "=========================================\n";
     cout << "1. Play Numerical Tic-Tac-Toe (Game 9)\n";
-<<<<<<<< HEAD:ConsoleApplication1/main.cpp
-    cout << "2. PLay SUS Tic-Tac-Toe (Game 1)\n"; 
-    cout << "3. Exit Program\n";
-    cout << "=========================================\n";
-    cout << "Enter your choice ";
-========
     cout << "2. Play Inverse Tic-Tac-Toe (Game 5)\n";
 	cout << "3. Play Pyramid Tic-Tac-Toe (Game 8)\n";
-    cout << "4. Exit Program\n";
+    cout << "4. PLay SUS Tic-Tac-Toe (Game 1)\n";
+    cout << "5. Exit Program\n";
     cout << "=========================================\n";
-    cout << "Enter your choice (1-4): ";
->>>>>>>> ccf4a4eb145740024e83ffece95dbf290ec929c5:ConsoleApplication1/Main.cpp
+    cout << "Enter your choice (1-5): ";
 }
 
 
@@ -167,32 +148,25 @@ int main() {
         switch (choice) {
         case 1:
             playNumericalTicTacToe();
-            break;
-<<<<<<<< HEAD:ConsoleApplication1/main.cpp
-        case 2: 
-            playSUS(); 
             break; 
-        case 3:
-========
-        case 2 :
+        case 2:
             playInverseTicTacToe();
             break;
         case 3:
             playPyramidXO();
 			break;
         case 4:
->>>>>>>> ccf4a4eb145740024e83ffece95dbf290ec929c5:ConsoleApplication1/Main.cpp
+            playSUS(); 
+            break; 
+        case 5:
             cout << "\nThank you for playing FCAI Board Games!\n";
             cout << "Goodbye!\n";
             break;
         default:
             cout << "Invalid choice! Please enter 1 or 2.\n\n";
         }
-<<<<<<<< HEAD:ConsoleApplication1/main.cpp
-    } while (choice != 3);
-========
-    } while (choice != 4);
->>>>>>>> ccf4a4eb145740024e83ffece95dbf290ec929c5:ConsoleApplication1/Main.cpp
 
+
+    } while (choice != 5);
     return 0;
 }
