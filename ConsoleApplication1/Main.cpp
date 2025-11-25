@@ -10,6 +10,7 @@
 #include <cstdlib>
 #include <ctime>
 #include "NumericalTicTacToe_Classes.h"
+#include "PyramidXO_Classes.h"
 
 using namespace std;
 
@@ -44,6 +45,29 @@ void playNumericalTicTacToe() {
 
     cout << "=== Game Finished ===\n\n";
 }
+void playPyramidXO() {
+
+    cout << "\n=== Starting Pyramid Tic-Tac-Toe ===\n";
+
+    UI<char>* game_ui = new PyramidXO_UI();
+    Board<char>* pyramid_board = new PyramidX_O_Board();
+
+
+    Player<char>** players = game_ui->setup_players();
+
+    GameManager<char> pyramid_game(pyramid_board, players, game_ui);
+
+    pyramid_game.run();
+
+    delete pyramid_board;
+    for (int i = 0; i < 2; ++i) {
+        delete players[i];
+    }
+    delete[] players;
+    delete game_ui;
+
+    cout << "=== Game Finished ===\n\n";
+}
 
 /**
  * @brief Displays the main menu
@@ -56,9 +80,10 @@ void displayMenu() {
     cout << "             Part 1 - CS213            \n";
     cout << "=========================================\n";
     cout << "1. Play Numerical Tic-Tac-Toe (Game 9)\n";
-    cout << "2. Exit Program\n";
+	cout << "2. Plyae Pyramid Tic-Tac-Toe (Game 8)\n";
+    cout << "3. Exit Program\n";
     cout << "=========================================\n";
-    cout << "Enter your choice (1-2): ";
+    cout << "Enter your choice (1-3): ";
 }
 
 /**
@@ -90,6 +115,9 @@ int main() {
             playNumericalTicTacToe();
             break;
         case 2:
+            playPyramidXO();
+			break;
+        case 3:
             cout << "\nThank you for playing FCAI Board Games!\n";
             cout << "Goodbye!\n";
             break;
