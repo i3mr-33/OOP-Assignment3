@@ -20,12 +20,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BoardGame_Classes.h" />
+    <ClInclude Include="InverseTicTacToe.h" />
     <ClInclude Include="NumericalTicTacToe_Classes.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="dic.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="InverseTicTacToe.cpp" />
     <ClCompile Include="NumericalTicTacToe.cpp" />
     <ClCompile Include="NumericalTicTacToe_Classes.cpp" />
   </ItemGroup>
