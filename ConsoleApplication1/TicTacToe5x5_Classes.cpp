@@ -112,7 +112,7 @@ Player<char>* TicTacToe5x5_UI::create_player(string& name, char symbol, PlayerTy
 }
 
 Move<char>* TicTacToe5x5_UI::get_move(Player<char>* player) {
-    int x = -1, y = -1;
+    int x = -1 , y = -1;
     Board<char>* b = player->get_board_ptr();
 
     if (player->get_type() == PlayerType::HUMAN) {

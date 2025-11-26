@@ -110,7 +110,7 @@ Player<char>* TicTacToe4x4_UI::create_player(string& name, char symbol, PlayerTy
 }
 
 Move<char>* TicTacToe4x4_UI::get_move(Player<char>* player) {
-    int x, y;
+    int x ,y ;
 	int r1, c1, r2, c2;
 
     if (player->get_type() == PlayerType::HUMAN) {
