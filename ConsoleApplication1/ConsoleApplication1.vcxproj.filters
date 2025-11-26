@@ -33,13 +33,13 @@
     <ClInclude Include="InfinityTic-Tac-Toe.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="TicTacToe5x5_Classes.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
     <ClInclude Include="4x4TicTacToe.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="ObstacleTicTacToe.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TicTacToe5x5_Classes.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
