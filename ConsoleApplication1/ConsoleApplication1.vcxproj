@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="4x4TicTacToe.h" />
     <ClInclude Include="BoardGame_Classes.h" />
     <ClInclude Include="InfinityTic-Tac-Toe.h" />
     <ClInclude Include="InverseTicTacToe.h" />
@@ -30,6 +31,7 @@
     <Text Include="dic.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="4x4TicTacToe.cpp" />
     <ClCompile Include="InfinityTic-Tac-Toe.cpp" />
     <ClCompile Include="InverseTicTacToe.cpp" />
     <ClCompile Include="Main.cpp" />
