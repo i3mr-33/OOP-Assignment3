@@ -1,4 +1,4 @@
-
+﻿
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
@@ -7,6 +7,8 @@
 #include "SUSTicTacToe_Classes.h"
 #include "InverseTicTacToe.h"
 #include "PyramidXO_Classes.h"
+#include "4x4TicTacToe.h"
+#include "InfinityTic-Tac-Toe.h"
 
 using namespace std;
 
@@ -98,8 +100,8 @@ void playSUS() {
     Player<char>** players = game_ui->setup_players();
 
     // Create and run game manager
-    GameManager<char> numerical_game(SUS_board, players, game_ui);
-    numerical_game.run();
+    GameManager<char> SUS_game(SUS_board, players, game_ui);
+    SUS_game.run();
 
     // Cleanup memory
     delete SUS_board;
@@ -109,6 +111,57 @@ void playSUS() {
     delete[] players;
     delete game_ui;
 
+    cout << "=== Game Finished ===\n\n";
+
+}
+void Play4x4() {
+    cout << "\n === Starting 4x4 Tic-Tac-Toe Game ===\n";
+
+    // Seed random number generator
+    srand(static_cast<unsigned int>(time(0)));
+
+    // Create game components
+    UI<char>* game_ui = new TicTacToe4x4_UI();
+    Board<char>* TicTacToe4x4_board = new TicTacToe4x4_Board();
+    Player<char>** players = game_ui->setup_players();
+
+    // Create and run game manager
+    GameManager<char> TicTacToe4x4_game(TicTacToe4x4_board, players, game_ui);
+    TicTacToe4x4_game.run();
+
+    // Cleanup memory
+    delete TicTacToe4x4_board;
+    for (int i = 0; i < 2; ++i) {
+        delete players[i];
+    }
+    delete[] players;
+    delete game_ui;
+
+    cout << "=== Game Finished ===\n\n";
+
+}
+void playInfinityTicTacToe() {
+    cout << "\n=== Starting Infinite Tic-Tac-Toe ===\n";
+    srand(static_cast<unsigned int>(time(0)));  // Seed the random number generator
+
+    // Create an instance of the specific UI for X-O using a pointer 
+    UI<char>* game_ui = new Infinity_UI();
+
+    // Create the game board. For X-O, this is an X_O_Board.
+    Board<char>* xo_board = new Infinity_Board();
+
+    // Use the UI to set up the players for the game.
+    // The UI returns a dynamically allocated array of Player pointers.
+    Player<char>** players = game_ui->setup_players();
+
+    // Create the game manager with the board and the array of players.
+    GameManager<char> x_o_game(xo_board, players, game_ui);
+    x_o_game.run();
+    for (int i = 0; i < 2; ++i) {
+        delete players[i];
+    }
+    delete[] players;
+    delete game_ui;
     cout << "=== Game Finished ===\n\n";
 
 }
@@ -123,9 +176,11 @@ void displayMenu() {
     cout << "2. Play Inverse Tic-Tac-Toe (Game 5)\n";
 	cout << "3. Play Pyramid Tic-Tac-Toe (Game 8)\n";
     cout << "4. PLay SUS Tic-Tac-Toe (Game 1)\n";
-    cout << "5. Exit Program\n";
+    cout << "5. PLay 4x4 Tic-Tac-Toe (Game 7)\n";
+	cout << "6. Playe Infinity Tic-Tac-Toe (Game 11)\n";
+    cout << "7. Exit Program\n";
     cout << "=========================================\n";
-    cout << "Enter your choice (1-5): ";
+    cout << "Enter your choice (1-7): ";
 }
 
 
@@ -159,6 +214,12 @@ int main() {
             playSUS(); 
             break; 
         case 5:
+            Play4x4();
+            break;
+		case 6:
+            playInfinityTicTacToe();
+			break;
+        case 7:
             cout << "\nThank you for playing FCAI Board Games!\n";
             cout << "Goodbye!\n";
             break;
@@ -167,6 +228,6 @@ int main() {
         }
 
 
-    } while (choice != 5);
+    } while (choice != 7);
     return 0;
 }
