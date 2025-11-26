@@ -22,22 +22,40 @@ bool PyramidX_O_Board::update_board(Move<char>* move) {
     char mark = move->get_symbol();
 
     // Validate move and apply if valid
-    if (!(x < 0 || x >= rows || y < 0 || y >= columns) &&
-        (board[x][y] == blank_symbol || mark == 0)) {
-
-		if (x == 0 && y != 2) return false; // First row, only middle cell allowed
-		if (x == 1 && (y < 1 || y > 3)) return false; // Second row, only middle three cells allowed
-        if (mark == 0) { // Undo move
+    if (x < 0 || x >= rows || y < 0 || y >= columns) {
+        cout << "Invalid position! Coordinates out of board limits.\n";
+        return false;
+    }
+    if (x == 0 && y != 2) {
+        cout << "Invalid position! First row only allows middle cell (0,2).\n";
+        return false;
+    }
+    if (x == 1 && (y < 1 || y > 3)) {
+        cout << "Invalid position! Second row only allows columns 1-3.\n";
+        return false;
+    }
+    if (mark != 0 && board[x][y] != blank_symbol) {
+        cout << "Cell is occupied!\n";
+        return false;
+    }
+    if (mark == 0) { // Undo move
+        if (board[x][y] != blank_symbol) {
             n_moves--;
             board[x][y] = blank_symbol;
+            return true;
         }
-        else {         // Apply move
+        cout << "Cannot undo - cell is already empty!\n";
+        return false;
+    }
+    else {         // Apply move
+        if (board[x][y] == blank_symbol) {
             n_moves++;
             board[x][y] = toupper(mark);
+            return true;
         }
-        return true;
+        cout << "Cell is occupied!\n";
+        return false;
     }
-    return false;
 }
 
 bool PyramidX_O_Board::is_win(Player<char>* player) {

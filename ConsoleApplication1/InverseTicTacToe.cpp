@@ -3,11 +3,10 @@
 #include <iostream>
 #include <iomanip>
 #include <cctype>  // for toupper()
+#include <limits>  // for input validation
 #include "InverseTicTacToe.h"
 
 using namespace std;
-
-//--------------------------------------- X_O_Board Implementation
 
 InverseTicTacToe_Board::InverseTicTacToe_Board() : Board(3, 3) {
     // Initialize all cells with blank_symbol
@@ -21,21 +20,36 @@ bool InverseTicTacToe_Board::update_board(Move<char>* move) {
     int y = move->get_y();
     char mark = move->get_symbol();
 
-    // Validate move and apply if valid
-    if (!(x < 0 || x >= rows || y < 0 || y >= columns) &&
-        (board[x][y] == blank_symbol || mark == 0)) {
+    // Validate coordinates
+    if (x < 0 || x >= rows || y < 0 || y >= columns) {
+        cout << "Invalid position! Coordinates must be within board limits (0-2).\n";
+        return false;
+    }
 
-        if (mark == 0) { // Undo move
+    // Check if cell is empty
+    if (mark != 0 && board[x][y] != blank_symbol) {
+        cout << "Cell is occupied!\n";
+        return false;
+    }
+
+    if (mark == 0) { // Undo move
+        if (board[x][y] != blank_symbol) {
             n_moves--;
             board[x][y] = blank_symbol;
+            return true;
         }
-        else {         // Apply move
+        cout << "Cannot undo - cell is already empty!\n";
+        return false;
+    }
+    else {         // Apply move
+        if (board[x][y] == blank_symbol) {
             n_moves++;
             board[x][y] = toupper(mark);
+            return true;
         }
-        return true;
+        cout << "Cell is occupied!\n";
+        return false;
     }
-    return false;
 }
 
 bool InverseTicTacToe_Board::is_lose(Player<char>* player) {

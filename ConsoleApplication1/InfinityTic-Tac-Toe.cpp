@@ -18,7 +18,15 @@ bool Infinity_Board::update_board(Move<char>* move) {
     int y = move->get_y();
     char symbol = toupper(move->get_symbol());
 
-    if (x < 0 || x >= rows || y < 0 || y >= columns || board[x][y] != blank_symbol) {
+    // Validate coordinates
+    if (x < 0 || x >= rows || y < 0 || y >= columns) {
+        cout << "Invalid position! Coordinates must be within board limits (0-2).\n";
+        return false;
+    }
+
+    // Check if cell is empty
+    if (board[x][y] != blank_symbol) {
+        cout << "Cell is occupied!\n";
         return false;
     }
 

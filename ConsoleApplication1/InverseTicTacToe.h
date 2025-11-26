@@ -87,7 +87,6 @@ public:
      * Initializes the base `UI<char>` class with the welcome message "FCAI X-O".
      */
     InverseTicTacToe_UI();
-
     /**
      * @brief Destructor for XO_UI.
      */
