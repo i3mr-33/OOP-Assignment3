@@ -40,7 +40,7 @@ bool Infinity_Board::update_board(Move<char>* move) {
         if (o_history.size() > 3) {
             pair<int, int> oldest = o_history.front();
             o_history.pop();
-            board[oldest.first][oldest.second] = 0; 
+            board[oldest.first][oldest.second] = blank_symbol; 
             n_moves--;
         }
     }
