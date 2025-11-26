@@ -30,6 +30,9 @@
     <ClInclude Include="PyramidXO_Classes.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="InfinityTic-Tac-Toe.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="dic.txt">
@@ -50,6 +53,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SUSTicTacToe_Classes.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="InfinityTic-Tac-Toe.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
