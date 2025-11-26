@@ -24,8 +24,10 @@
     <ClInclude Include="InfinityTic-Tac-Toe.h" />
     <ClInclude Include="InverseTicTacToe.h" />
     <ClInclude Include="NumericalTicTacToe_Classes.h" />
+    <ClInclude Include="ObstacleTicTacToe.h" />
     <ClInclude Include="SUSTicTacToe_Classes.h" />
     <ClInclude Include="PyramidXO_Classes.h" />
+    <ClInclude Include="TicTacToe5x5_Classes.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="dic.txt" />
@@ -36,8 +38,10 @@
     <ClCompile Include="InverseTicTacToe.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="NumericalTicTacToe_Classes.cpp" />
+    <ClCompile Include="ObstacleTicTacToe.cpp" />
     <ClCompile Include="PyramidXO_Classes.cpp" />
     <ClCompile Include="SUSTicTacToe_Classes.cpp" />
+    <ClCompile Include="TicTacToe5x5_Classes.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

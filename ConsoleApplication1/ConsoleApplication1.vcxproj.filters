@@ -33,6 +33,15 @@
     <ClInclude Include="InfinityTic-Tac-Toe.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="4x4TicTacToe.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ObstacleTicTacToe.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TicTacToe5x5_Classes.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="dic.txt">
@@ -56,6 +65,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="InfinityTic-Tac-Toe.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="4x4TicTacToe.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ObstacleTicTacToe.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TicTacToe5x5_Classes.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
