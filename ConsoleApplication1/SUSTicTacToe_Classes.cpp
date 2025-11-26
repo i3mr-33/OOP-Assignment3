@@ -192,7 +192,7 @@ Player<char>** SUS_UI::setup_players()
     // 1. Player 1
    
     // Name
-    string name1 = get_player_name("name for Player 1");
+    string name1 = get_player_name("Player 1");
 
     // Type
     PlayerType type1 = get_player_type_choice("Player 1", type_options);
@@ -223,12 +223,12 @@ Player<char>** SUS_UI::setup_players()
 
     // 2. Player 2
 
-    // Type
-    PlayerType type2 = get_player_type_choice("Player 2", type_options);
-
     // Name 
     string name2; 
-    name2 = get_player_name("name for Player 2 (uses " + string(1, symbol2) + ")");
+    name2 = get_player_name("Player 2 (uses " + string(1, symbol2) + ")");
+
+    // Type
+    PlayerType type2 = get_player_type_choice("Player 2", type_options);
 
     players[1] = create_player(name2, symbol2, type2);
 

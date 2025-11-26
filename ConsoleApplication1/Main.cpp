@@ -9,7 +9,6 @@
 #include "PyramidXO_Classes.h"
 #include "4x4TicTacToe.h"
 #include "InfinityTic-Tac-Toe.h"
-#include "TicTacToe5x5_Classes.h"
 
 using namespace std;
 
@@ -166,31 +165,6 @@ void playInfinityTicTacToe() {
     cout << "=== Game Finished ===\n\n";
 
 }
-void play5x5TicTacToe() {
-    cout << "\n=== Starting 5x5 Tic-Tac-Toe ===\n";
-    srand(static_cast<unsigned int>(time(0)));  // Seed the random number generator
-
-    // Create an instance of the specific UI for X-O using a pointer 
-    UI<char>* game_ui = new TicTacToe5x5_UI();
-
-    // Create the game board. For X-O, this is an X_O_Board.
-    Board<char>* xo_board = new TicTacToe5x5_Board();
-
-    // Use the UI to set up the players for the game.
-    // The UI returns a dynamically allocated array of Player pointers.
-    Player<char>** players = game_ui->setup_players();
-
-    // Create the game manager with the board and the array of players.
-    GameManager<char> x_o_game(xo_board, players, game_ui);
-    x_o_game.run();
-    for (int i = 0; i < 2; ++i) {
-        delete players[i];
-    }
-    delete[] players;
-    delete game_ui;
-    cout << "=== Game Finished ===\n\n";
-
-}
 
 
 void displayMenu() {
@@ -203,9 +177,8 @@ void displayMenu() {
 	cout << "3. Play Pyramid Tic-Tac-Toe (Game 8)\n";
     cout << "4. PLay SUS Tic-Tac-Toe (Game 1)\n";
     cout << "5. PLay 4x4 Tic-Tac-Toe (Game 7)\n";
-	cout << "6. Play Infinity Tic-Tac-Toe (Game 11)\n";
-    cout << "7. Play 5x5 Tic-Tac-Toe (Game 3)\n";
-    cout << "8. Exit Program\n";
+	cout << "6. Playe Infinity Tic-Tac-Toe (Game 11)\n";
+    cout << "7. Exit Program\n";
     cout << "=========================================\n";
     cout << "Enter your choice (1-7): ";
 }
@@ -247,9 +220,6 @@ int main() {
             playInfinityTicTacToe();
 			break;
         case 7:
-            play5x5TicTacToe();
-            break;
-        case 8:
             cout << "\nThank you for playing FCAI Board Games!\n";
             cout << "Goodbye!\n";
             break;
