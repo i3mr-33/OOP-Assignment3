@@ -91,7 +91,7 @@ bool TicTacToe4x4_Board::is_win(Player<char>* player) {
 }
 
 bool TicTacToe4x4_Board::is_draw(Player<char>* player) {
-    return (n_moves == 16 && !is_win(player));
+    return (n_moves == 100 && !is_win(player));
 }
 
 bool TicTacToe4x4_Board::game_is_over(Player<char>* player) {
@@ -122,7 +122,63 @@ Move<char>* TicTacToe4x4_UI::get_move(Player<char>* player) {
 		y = r2 * 10 + c2;
     }
     else if (player->get_type() == PlayerType::COMPUTER) {
-        
+        if (!is_initialized) {
+            char sym = player->get_symbol();
+            computer_pieces.clear();
+
+            if (sym == 'O') {
+                computer_pieces.push_back({ 0, 0 });
+                computer_pieces.push_back({ 0, 2 });
+                computer_pieces.push_back({ 3, 1 });
+                computer_pieces.push_back({ 3, 3 });
+            }
+            else {
+                computer_pieces.push_back({ 0, 1 });
+                computer_pieces.push_back({ 0, 3 });
+                computer_pieces.push_back({ 3, 0 });
+                computer_pieces.push_back({ 3, 2 });
+            }
+            is_initialized = true;
+        }
+
+        unsigned seed = rand();
+
+        bool valid_move_found = false;
+
+        while (!valid_move_found) {
+            int piece_index = rand() % computer_pieces.size();
+            r1 = computer_pieces[piece_index].first;
+            c1 = computer_pieces[piece_index].second;
+
+            int dr[] = { -1, 1, 0, 0 };
+            int dc[] = { 0, 0, -1, 1 };
+            vector<int> dirs = { 0, 1, 2, 3 };
+
+            for (int k = 0; k < dirs.size(); k++) {
+                int r = rand() % dirs.size();
+                swap(dirs[k], dirs[r]);
+            }
+
+            for (int i : dirs) {
+                int test_r = r1 + dr[i];
+                int test_c = c1 + dc[i];
+
+                if (test_r >= 0 && test_r < 4 && test_c >= 0 && test_c < 4) {
+                    r2 = test_r;
+                    c2 = test_c;
+
+                    computer_pieces[piece_index] = { r2, c2 };
+
+                    valid_move_found = true;
+                    break;
+                }
+            }
+
+        }
+
+        cout << "Computer moves from (" << r1 << "," << c1 << ") to (" << r2 << "," << c2 << ")\n";
+        x = r1 * 10 + c1;
+        y = r2 * 10 + c2;
     }
     return new Move<char>(x, y, player->get_symbol());
 }
