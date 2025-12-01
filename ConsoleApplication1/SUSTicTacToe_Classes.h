@@ -9,6 +9,7 @@ private:
     string sus;
     int score_S;
     int score_U;
+    int total_sus_count;
     int count_SUS_sequences();
 
 public:

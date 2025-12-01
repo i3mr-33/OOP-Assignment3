@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="4x4TicTacToe.h" />
     <ClInclude Include="BoardGame_Classes.h" />
+    <ClInclude Include="Four-in-a-rowTicTacToe.h" />
     <ClInclude Include="InfinityTic-Tac-Toe.h" />
     <ClInclude Include="InverseTicTacToe.h" />
     <ClInclude Include="NumericalTicTacToe_Classes.h" />
@@ -34,6 +35,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="4x4TicTacToe.cpp" />
+    <ClCompile Include="Four-in-a-rowTicTacToe.cpp" />
     <ClCompile Include="InfinityTic-Tac-Toe.cpp" />
     <ClCompile Include="InverseTicTacToe.cpp" />
     <ClCompile Include="Main.cpp" />

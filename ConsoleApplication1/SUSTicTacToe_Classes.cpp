@@ -15,7 +15,8 @@ SUS_Board::SUS_Board() : Board(3, 3)
 
     sus = "SUS";
     score_S = 0; 
-    score_U = 0; 
+    score_U = 0;
+    total_sus_count = 0;
 }
 
 int SUS_Board::count_SUS_sequences()
@@ -72,30 +73,29 @@ bool SUS_Board::update_board(Move<char>* move)
     board[x][y] = symbol;
     n_moves++; 
 
-    int sus_count = count_SUS_sequences(); 
-    if (sus_count > 0)
+    int new_total_sus_count = count_SUS_sequences();
+    int points_gained = new_total_sus_count - total_sus_count;
+
+    if (points_gained > 0)
     {
         if (symbol == 'S')
-            score_S++;
+            score_S += points_gained; 
         else
-            score_U++; 
+            score_U += points_gained; 
     }
 
+    total_sus_count = new_total_sus_count;
     return true; 
 
 }
-
-
 
 bool SUS_Board::is_win(Player<char>* player)
 {
     if (n_moves == 9)
     {
         char symbol = player->get_symbol();
-        if (symbol == 'S') 
-            return score_S > score_U;
-        if (symbol == 'U') 
-            return score_U > score_S;
+        if (symbol == 'S') return score_S > score_U;
+        if (symbol == 'U') return score_U > score_S;
     }
     return false;
 }
@@ -105,10 +105,8 @@ bool SUS_Board::is_lose(Player<char>* player)
     if (n_moves == 9)
     {
         char symbol = player->get_symbol();
-        if (symbol == 'S') 
-            return score_U > score_S;
-        if (symbol == 'U') 
-            return score_S > score_U;
+        if (symbol == 'S') return score_U > score_S;
+        if (symbol == 'U') return score_S > score_U;
     }
     return false;
 }
