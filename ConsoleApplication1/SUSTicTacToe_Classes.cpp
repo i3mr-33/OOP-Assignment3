@@ -14,6 +14,8 @@ SUS_Board::SUS_Board() : Board(3, 3)
             cell = ' ';
 
     sus = "SUS";
+    score_S = 0; 
+    score_U = 0; 
 }
 
 int SUS_Board::count_SUS_sequences()

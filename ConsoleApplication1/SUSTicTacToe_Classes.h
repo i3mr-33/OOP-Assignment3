@@ -7,6 +7,9 @@ using namespace std;
 class SUS_Board : public Board<char> {
 private:
     string sus;
+    int score_S;
+    int score_U;
+    int count_SUS_sequences();
 
 public:
     
@@ -21,10 +24,7 @@ public:
 
     bool is_position_available(int number, bool is_player1) ;
     vector<int> get_available_position(bool is_player1) ;
-
-    int count_SUS_sequences();
-    int score_S; 
-    int score_U; 
+ 
 };
 
 
