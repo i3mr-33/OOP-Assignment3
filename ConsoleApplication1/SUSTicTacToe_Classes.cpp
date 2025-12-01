@@ -16,29 +16,6 @@ SUS_Board::SUS_Board() : Board(3, 3)
     sus = "SUS";
 }
 
-bool SUS_Board::update_board(Move<char>* move)
-{
-    int x = move->get_x();
-    int y = move->get_y();
-    char symbol = move->get_symbol();
-
-    if (x < 0 || x >= 3 || y < 0 || y >= 3)
-    {
-        cout << "Invalid position! Coordinates must be 0-2.\n";
-        return false;
-    }
-
-    if (board[x][y] != ' ')
-    {
-        cout << "Cell is occupied!\n";
-        return false;
-    }
-
-    board[x][y] = symbol;
-    n_moves++;
-    return true;
-}
-
 int SUS_Board::count_SUS_sequences()
 {
     int count = 0;
@@ -72,30 +49,80 @@ int SUS_Board::count_SUS_sequences()
     return count;
 }
 
+bool SUS_Board::update_board(Move<char>* move)
+{
+    int x = move->get_x();
+    int y = move->get_y();
+    char symbol = move->get_symbol();
+
+    if (x < 0 || x >= 3 || y < 0 || y >= 3)
+    {
+        cout << "Invalid position! Coordinates must be 0-2.\n";
+        return false;
+    }
+
+    if (board[x][y] != ' ')
+    {
+        cout << "Cell is occupied!\n";
+        return false;
+    }
+
+    board[x][y] = symbol;
+    n_moves++; 
+
+    int sus_count = count_SUS_sequences(); 
+    if (sus_count > 0)
+    {
+        if (symbol == 'S')
+            score_S++;
+        else
+            score_U++; 
+    }
+
+    return true; 
+
+}
+
+
+
 bool SUS_Board::is_win(Player<char>* player)
 {
-    if (n_moves == 9 && count_SUS_sequences() > 0) {
-        return player->get_symbol() == 'S';
+    if (n_moves == 9)
+    {
+        char symbol = player->get_symbol();
+        if (symbol == 'S') 
+            return score_S > score_U;
+        if (symbol == 'U') 
+            return score_U > score_S;
     }
     return false;
 }
 
 bool SUS_Board::is_lose(Player<char>* player)
 {
-    if (n_moves == 9 && count_SUS_sequences() > 0) {
-        return player->get_symbol() == 'U';
+    if (n_moves == 9)
+    {
+        char symbol = player->get_symbol();
+        if (symbol == 'S') 
+            return score_U > score_S;
+        if (symbol == 'U') 
+            return score_S > score_U;
     }
     return false;
 }
 
 bool SUS_Board::is_draw(Player<char>* player)
 {
-    return n_moves == 9 && count_SUS_sequences() == 0;
+    if (n_moves == 9)
+    {
+        return score_S == score_U;
+    }
+    return false;
 }
 
 bool SUS_Board::game_is_over(Player<char>* player)
 {
-    return is_win(player) || is_lose(player) || is_draw(player);
+    return n_moves == 9;
 }
 
 bool SUS_Board::is_position_available(int number, bool is_player1)
@@ -157,11 +184,11 @@ Move<char>* SUS_UI::get_move(Player<char>* player)
         int y = (pos - 1) % 3;
         char letter = computer_symbol;
 
-        cout << "\nComputer chose position " << pos
+        cout << "\nComputer choose position " << pos
             << " -> (" << x << "," << y << ") with letter " << letter << endl;
         return new Move<char>(x, y, letter);
     }
-
+    
     //HUMAN MOVE 
     int x, y;
     while (true)

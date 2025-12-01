@@ -23,6 +23,8 @@ public:
     vector<int> get_available_position(bool is_player1) ;
 
     int count_SUS_sequences();
+    int score_S; 
+    int score_U; 
 };
 
 
