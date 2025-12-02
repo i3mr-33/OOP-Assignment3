@@ -7,7 +7,7 @@ using namespace std;
 class Connect_Four_Board :public Board<char> {
 private :
     char Mark; 
-    int count_Four(); 
+    bool check_Four(char mark); 
 public :
 	Connect_Four_Board();
 
@@ -16,6 +16,9 @@ public :
     bool is_lose(Player<char>* player);
     bool is_draw(Player<char>* player);
     bool game_is_over(Player<char>* player);
+
+    bool is_position_available(int number, bool is_player1);
+    vector<int> get_available_position(bool is_player1);
 };
 
 class Connect_Four_UI : public UI<char> {
