@@ -1,14 +1,15 @@
-#pragma once
+/*#pragma once
 #include "BoardGame_Classes.h"
 #include <string>
 
 
 using namespace std;
-class Four_in_a_row_Board :public Board<char> {
-protected :
-
+class Connect_Four_Board :public Board<char> {
+private :
+    char Mark; 
+    int count_Four(); 
 public :
-	Four_in_a_row_Board();
+	Connect_Four_Board();
 
     bool update_board(Move<char>* move);
     bool is_win(Player<char>* player);
@@ -17,9 +18,9 @@ public :
     bool game_is_over(Player<char>* player);
 };
 
-class Four_in_a_row_UI : public UI<char> {
+class Connect_Four_UI : public UI<char> {
 public:
-    Four_in_a_row_UI();
+    Connect_Four_UI();
 
     Player<char>* create_player(string& name, char symbol, PlayerType type);
 
@@ -27,3 +28,4 @@ public:
 
     Player<char>** setup_players();
 };
+*/
