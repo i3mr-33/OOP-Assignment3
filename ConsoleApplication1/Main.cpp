@@ -10,6 +10,7 @@
 #include "4x4TicTacToe.h"
 #include "InfinityTic-Tac-Toe.h"
 #include "TicTacToe5x5_Classes.h"
+#include "DiamondTicTacToe.h"
 
 using namespace std;
 
@@ -192,6 +193,32 @@ void play5x5TicTacToe() {
 
 }
 
+void playDiamondTicTacToe() {
+    cout << "\n=== Starting Diamond Tic-Tac-Toe ===\n";
+    srand(static_cast<unsigned int>(time(0)));  // Seed the random number generator
+
+    // Create an instance of the specific UI for Diamond Tic-Tac-Toe
+    UI<char>* game_ui = new DiamondTicTacToe_UI();
+
+    // Create the game board
+    Board<char>* diamond_board = new DiamondTicTacToe_Board();
+
+    // Use the UI to set up the players for the game
+    Player<char>** players = game_ui->setup_players();
+
+    // Create the game manager with the board and the array of players
+    GameManager<char> diamond_game(diamond_board, players, game_ui);
+    diamond_game.run();
+
+    // Clean up
+    for (int i = 0; i < 2; ++i) {
+        delete players[i];
+    }
+    delete[] players;
+    delete diamond_board;
+    delete game_ui;
+    cout << "=== Diamond Tic-Tac-Toe Finished ===\n\n";
+}
 
 void displayMenu() {
     cout << "=========================================\n";
@@ -205,9 +232,10 @@ void displayMenu() {
     cout << "5. PLay 4x4 Tic-Tac-Toe (Game 7)\n";
 	cout << "6. Play Infinity Tic-Tac-Toe (Game 11)\n";
 	cout << "7. Play 5x5 Tic-Tac-Toe (Game 3)\n";
-    cout << "8. Exit Program\n";
+    cout << "8. Play Diamond Tic-Tac-Toe (Game 6)\n";
+    cout << "9. Exit Program\n";
     cout << "=========================================\n";
-    cout << "Enter your choice (1-8): ";
+    cout << "Enter your choice (1-9): ";
 }
 
 
@@ -250,14 +278,17 @@ int main() {
             play5x5TicTacToe();
 			break;
         case 8:
+            playDiamondTicTacToe();
+            break;
+        case 9:
             cout << "\nThank you for playing FCAI Board Games!\n";
             cout << "Goodbye!\n";
             break;
         default:
-            cout << "Invalid choice! Please enter 1 or 2.\n\n";
+            cout << "Invalid choice! Please enter 1 or 9.\n\n";
         }
 
 
-    } while (choice != 8);
+    } while (choice != 9);
     return 0;
 }

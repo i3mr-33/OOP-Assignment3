@@ -45,6 +45,9 @@
     <ClInclude Include="Four-in-a-rowTicTacToe.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="DiamondTicTacToe.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="dic.txt">
@@ -80,6 +83,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Four-in-a-rowTicTacToe.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DiamondTicTacToe.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
