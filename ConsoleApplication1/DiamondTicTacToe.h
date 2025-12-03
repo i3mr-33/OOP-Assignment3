@@ -38,6 +38,7 @@ public:
 
     Player<char>* create_player(string& name, char symbol, PlayerType type) override;
     Move<char>* get_move(Player<char>* player) override;
+    void display_board_matrix(const vector<vector<char>>& matrix) const override;
 };
 
 #endif // DiamondTicTacToe_H

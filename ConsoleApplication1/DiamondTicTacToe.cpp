@@ -257,3 +257,24 @@ Move<char>* DiamondTicTacToe_UI::get_move(Player<char>* player) {
         }
     }
 }
+void DiamondTicTacToe_UI::display_board_matrix(const vector<vector<char>>& matrix) const {
+
+    cout << "\n  0   1   2   3   4   5   6\n";
+
+    cout << "               -+-               \n";
+    cout << "0             | " << matrix[0][3] << " | \n";
+    cout << "           ---+---+---           \n";
+    cout << "1         | " << matrix[1][2] << " | " << matrix[1][3] << " | " << matrix[1][4] << " |  \n";
+    cout << "       ---+---+---+---+---      \n";
+    cout << "2     | " << matrix[2][1] << " | " << matrix[2][2] << " | " << matrix[2][3] << " | " << matrix[2][4] << " | " << matrix[2][5] << " |    \n";
+    cout << "  +---+---+---+---+---+---+---+\n";
+    cout << "3 | " << matrix[3][0] << " | " << matrix[3][1] << " | " << matrix[3][2] << " | " << matrix[3][3] << " | " << matrix[3][4] << " | " << matrix[3][5] << " | " << matrix[3][6] << " |\n";
+    cout << "  +---+---+---+---+---+---+---+ \n";
+    cout << "4     | " << matrix[4][1] << " | " << matrix[4][2] << " | " << matrix[4][3] << " | " << matrix[4][4] << " | " << matrix[4][5] << " |    \n";
+    cout << "       ---+---+---+---+---      \n";
+    cout << "5         | " << matrix[5][2] << " | " << matrix[5][3] << " | " << matrix[5][4] << " |       \n";
+    cout << "           ---+---+---           \n";
+    cout << "6             | " << matrix[6][3] << " |    \n";
+    cout << "               -+-               \n";
+    cout << endl;
+}
