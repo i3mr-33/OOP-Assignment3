@@ -259,7 +259,7 @@ Move<char>* DiamondTicTacToe_UI::get_move(Player<char>* player) {
 }
 void DiamondTicTacToe_UI::display_board_matrix(const vector<vector<char>>& matrix) const {
 
-    cout << "\n  0   1   2   3   4   5   6\n";
+    cout << "\n    0   1   2   3   4   5   6\n";
 
     cout << "               -+-               \n";
     cout << "0             | " << matrix[0][3] << " | \n";
