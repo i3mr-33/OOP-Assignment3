@@ -5,14 +5,16 @@
 
 //====================== DiamondTicTacToe_Board Implementation ======================
 
-DiamondTicTacToe_Board::DiamondTicTacToe_Board() : Board<char>(5, 5) {
+DiamondTicTacToe_Board::DiamondTicTacToe_Board() : Board<char>(7, 7) {
     for (int i = 0; i < rows; ++i)
         for (int j = 0; j < columns; ++j)
             board[i][j] = blank_symbol;
-    board[0][0] = board[0][1] = board[0][3] = board[0][4] = '#';
-    board[1][0] = board[1][4] = '#';
-    board[3][0] = board[3][4] = '#';
-    board[4][0] = board[4][1] = board[4][3] = board[4][4] = '#';
+    board[0][0] = board[0][1] = board[0][2] = board[0][4] = board[0][5] = board[0][6] = '#';
+    board[1][0] = board[1][1] = board[1][5] = board[1][6] = '#';
+    board[2][0] = board[2][6] = '#';
+    board[4][0] = board[4][6] = '#';
+    board[5][0] = board[5][1] = board[5][5] = board[5][6] = '#';
+    board[6][0] = board[6][1] = board[6][2] = board[6][4] = board[6][5] = board[6][6] = '#';
     n_moves = 0;
     last_move_x = -1; 
     last_move_y = -1;
@@ -125,29 +127,29 @@ bool DiamondTicTacToe_Board::check_double_win_for_last_move() {
 
 bool DiamondTicTacToe_Board::is_win(Player<char>* player) {
     char sym = player->get_symbol();
-    int original_x = last_move_x;
-    int original_y = last_move_y;
-    char original_sym = last_move_symbol;
-    bool found_win = false;
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < columns; ++j) {
             if (is_valid_cell(i, j) && board[i][j] == sym) {
+                int original_x = last_move_x;
+                int original_y = last_move_y;
+                char original_sym = last_move_symbol;
+
                 last_move_x = i;
                 last_move_y = j;
                 last_move_symbol = sym;
                 if (check_double_win_for_last_move()) {
-                    found_win = true;
-                    break;
+                    last_move_x = original_x;
+                    last_move_y = original_y;
+                    last_move_symbol = original_sym;
+                    return true;
                 }
+                last_move_x = original_x;
+                last_move_y = original_y;
+                last_move_symbol = original_sym;
             }
         }
-        if (found_win) break;
     }
-
-    last_move_x = original_x;
-    last_move_y = original_y;
-    last_move_symbol = original_sym;
-    return found_win;
+    return false;
 }
 
 bool DiamondTicTacToe_Board::is_lose(Player<char>* player) {
@@ -219,12 +221,12 @@ Move<char>* DiamondTicTacToe_UI::get_move(Player<char>* player) {
 
     if (player->get_type() == PlayerType::HUMAN) {
         cout << "\n" << player->get_name() << " (" << player->get_symbol()
-            << "), enter your move ( row and column , 0-4 ): ";
+            << "), enter your move ( row and column , 0-6 ): ";
         cin >> x >> y;
-        while (cin.fail() || x < 0 || x > 4 || y < 0 || y > 4) {
+        while (cin.fail() || x < 0 || x > 6 || y < 0 || y > 6) {
             cin.clear();
             cin.ignore(1000, '\n');
-            cout << "Invalid input. Please enter numbers between 0 and 4: ";
+            cout << "Invalid input. Please enter numbers between 0 and 6: ";
             cin >> x >> y;
         }
         return new Move<char>(x, y, player->get_symbol());
