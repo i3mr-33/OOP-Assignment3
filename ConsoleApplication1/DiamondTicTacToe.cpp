@@ -25,7 +25,11 @@ bool DiamondTicTacToe_Board::update_board(Move<char>* move) {
     int y = move->get_y();
     char mark = move->get_symbol();
 
-    if (!is_valid_cell(x, y)) return false;
+    if (!is_valid_cell(x, y))
+    {
+        cout << "Cell (" << x << "," << y << ") is outside the diamond area and cannot be played. Please choose an available cell.\n";
+        return false;
+    }
 
     // Check if cell is empty
     if (board[x][y] != blank_symbol) {
