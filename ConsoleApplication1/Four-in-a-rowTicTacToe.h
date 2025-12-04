@@ -1,11 +1,15 @@
 /*#pragma once
 #include "BoardGame_Classes.h"
 #include <string>
+#include <iostream>
+#include <vector>
 
 
 using namespace std;
 class Connect_Four_Board :public Board<char> {
 private :
+    int rows; 
+    int columns; 
     char Mark; 
     bool check_Four(char mark); 
 public :
@@ -30,5 +34,8 @@ public:
     Move<char>* get_move(Player<char>* player);
 
     Player<char>** setup_players();
+
+    void display_board_matrix(const vector<vector<char>>& matrix) const override;
 };
 */
+

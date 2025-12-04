@@ -11,6 +11,7 @@
 #include "InfinityTic-Tac-Toe.h"
 #include "TicTacToe5x5_Classes.h"
 #include "DiamondTicTacToe.h"
+#include "Four-in-a-rowTicTacToe.h"
 
 using namespace std;
 
@@ -220,6 +221,34 @@ void playDiamondTicTacToe() {
     cout << "=== Diamond Tic-Tac-Toe Finished ===\n\n";
 }
 
+void playConnectFour() {
+    cout << "\n === Starting Connect Four Game ===\n";
+
+    // Seed random number generator
+    srand(static_cast<unsigned int>(time(0)));
+
+    // Create game components
+    UI<char>* game_ui = new Connect_Four_UI();
+    Board<char>* Connect_Four_board = new Connect_Four_Board();
+    Player<char>** players = game_ui->setup_players();
+
+    // Create and run game manager
+    GameManager<char> Connect_Four_game(Connect_Four_board, players, game_ui);
+    Connect_Four_game.run();
+
+    // Cleanup memory
+    delete Connect_Four_board;
+    for (int i = 0; i < 2; ++i) {
+        delete players[i];
+    }
+    delete[] players;
+    delete game_ui;
+
+    cout << "=== Game Finished ===\n\n";
+
+}
+
+
 void displayMenu() {
     cout << "=========================================\n";
     cout << "      FCAI Board Games Collection       \n";
@@ -233,9 +262,10 @@ void displayMenu() {
 	cout << "6. Play Infinity Tic-Tac-Toe (Game 11)\n";
 	cout << "7. Play 5x5 Tic-Tac-Toe (Game 3)\n";
     cout << "8. Play Diamond Tic-Tac-Toe (Game 6)\n";
-    cout << "9. Exit Program\n";
+    cout << "9. Play Connect Four Tic-Tac-Toe (Game 2) \n"; 
+    cout << "10. Exit Program\n";
     cout << "=========================================\n";
-    cout << "Enter your choice (1-9): ";
+    cout << "Enter your choice (1-10): ";
 }
 
 
@@ -280,7 +310,10 @@ int main() {
         case 8:
             playDiamondTicTacToe();
             break;
-        case 9:
+        case 9 :
+            playConnectFour(); 
+            break; 
+        case 10:
             cout << "\nThank you for playing FCAI Board Games!\n";
             cout << "Goodbye!\n";
             break;
@@ -289,6 +322,6 @@ int main() {
         }
 
 
-    } while (choice != 9);
+    } while (choice != 10);
     return 0;
 }

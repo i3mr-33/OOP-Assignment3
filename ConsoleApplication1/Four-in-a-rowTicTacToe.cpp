@@ -158,4 +158,132 @@ vector<int> Connect_Four_Board::get_available_position(bool is_player1)
     }
     return is_available; 
 }
+
+Connect_Four_UI::Connect_Four_UI() : UI<char>("Welcome to Connect Four Game!", 3) {}
+
+
+void Connect_Four_Board::display_board()
+{
+    cout << "\n";
+    // طباعة الصفوف من فوق لتحت
+    for (int r = 0; r < rows; r++)
+    {
+        cout << "| ";
+        for (int c = 0; c < columns; c++)
+        {
+            cout << board[r][c] << " | ";
+        }
+        cout << "\n";
+    }
+
+    // خط تحت البورد
+    cout << string(columns * 4 + 1, '-') << "\n  ";
+
+    // أرقام الأعمدة
+    for (int c = 1; c <= columns; c++)
+    {
+        cout << c << "   ";
+    }
+    cout << "\n\n";
+}
+
+
+Player<char>* Connect_Four_UI::create_player(string& name, char symbol, PlayerType type)
+{
+    return new Player<char>(name, symbol, type);
+}
+
+Move<char>* Connect_Four_UI::get_move(Player<char>* player)
+{
+    char player_symbol = player->get_symbol();
+
+    // === COMPUTER MOVE (سليم) ===
+    if (player->get_type() == PlayerType::COMPUTER)
+    {
+        Connect_Four_Board* board =
+            dynamic_cast<Connect_Four_Board*>(player->get_board_ptr());
+
+        vector<int> available = board->get_available_position(true);
+
+        int col = available[rand() % available.size()];
+        cout << "\nComputer chooses column " << col + 1 << endl;
+
+        return new Move<char>(col + 1, 0, player_symbol); // صح
+    }
+
+
+    // === HUMAN MOVE (كان غلط – هيتصلح هنا) ===
+    int col;
+    while (true)
+    {
+        cout << "\n" << player->get_name()
+            << " (Your symbol is " << player_symbol
+            << ") choose a COLUMN (1 to 7): ";
+
+        if (cin >> col && col >= 1 && col <= 7)
+        {
+            break;
+        }
+        else
+        {
+            cout << "Invalid input! Please enter a number between 1 and 7.\n";
+            cin.clear();
+            cin.ignore(10000, '\n');
+        }
+    }
+
+    return new Move<char>(col, 0, player_symbol); // 👈 عمود فقط
+}
+
+
+Player<char>** Connect_Four_UI::setup_players()
+{
+    Player<char>** players = new Player<char>*[2];
+    vector<string> type_options = { "Human", "Computer" };
+
+    // 1. Player 1
+
+    // Name
+    string name1 = get_player_name("Player 1");
+
+    // Type
+    PlayerType type1 = get_player_type_choice("Player 1", type_options);
+
+    // Symbol 
+    cout << "\n" << name1 << ", choose your symbol:\n"
+        << "1) X\n"
+        << "2) O\n";
+
+    int symbol_choice;
+    while (true)
+    {
+        cout << "Enter choice (1 or 2): ";
+        if (cin >> symbol_choice && (symbol_choice == 1 || symbol_choice == 2))
+        {
+            cin.ignore(10000, '\n');
+            break;
+        }
+        cout << "Invalid input! Please enter 1 or 2.\n";
+        cin.clear();
+        cin.ignore(10000, '\n');
+    }
+
+    char symbol1 = (symbol_choice == 1 ? 'X' : 'O');
+    char symbol2 = (symbol1 == 'X' ? 'O' : 'X');
+
+    players[0] = create_player(name1, symbol1, type1);
+
+    // 2. Player 2
+
+    // Name 
+    string name2;
+    name2 = get_player_name("Player 2 (uses " + string(1, symbol2) + ")");
+
+    // Type
+    PlayerType type2 = get_player_type_choice("Player 2", type_options);
+
+    players[1] = create_player(name2, symbol2, type2);
+
+    return players;
+}
 */
