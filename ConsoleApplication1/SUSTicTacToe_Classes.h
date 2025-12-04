@@ -10,13 +10,12 @@ private:
     int score_S;
     int score_U;
     int total_sus_count;
-    int count_SUS_sequences();
 
 public:
     
     SUS_Board();
 
-   
+    int count_SUS_sequences();
     bool update_board(Move<char>* move) ;
     bool is_win(Player<char>* player) ;
     bool is_lose(Player<char>* player) ;

@@ -1,7 +1,9 @@
-﻿/*#include "Four-in-a-rowTicTacToe.h"
+﻿#include "Four-in-a-rowTicTacToe.h"
+#include "BoardGame_Classes.h"
 #include <iostream>
+#include <iomanip>
+#include <cstdlib>
 using namespace std; 
-
 
 Connect_Four_Board::Connect_Four_Board() : Board(6, 7)
 {
@@ -69,7 +71,6 @@ bool Connect_Four_Board::check_Four(char mark)
                 return true;
         }
     }
-
     return false;
 }
 
@@ -77,47 +78,37 @@ bool Connect_Four_Board::update_board(Move<char>* move)
 {
     int ROWS = 6; 
     int COLS = 7; 
-    // نفترض أن move->get_x() هو رقم العمود (1-7) الذي اختاره اللاعب
-    int col_number = move->get_x();
+    
+    int c = move->get_x() ;
     char symbol = move->get_symbol();
 
-    // تحويل رقم العمود إلى فهرس (0-6)
-    int c = col_number - 1;
-
-    // 1. التحقق من صحة العمود
-    if (c < 0 || c >= COLS) // COLS = 7
+    if (c < 0 || c >= COLS) 
     {
         cout << "Invalid column! Column must be 0-6.\n";
         return false;
     }
-
 
     int r = -1; 
     for (int row = ROWS - 1 ; row >= 0; --row) 
     {
         if (board[row][c] == ' ')
         {
-            r = row; // وجدنا الصف الفارغ
+            r = row; 
             break;
         }
     }
 
-    // 3. التحقق مما إذا كان العمود ممتلئًا (لم يتم العثور على صف)
     if (r == -1)
     {
-        cout << "Column " << col_number << " is fully occupied!\n";
+        cout << "Column " << c << " is fully occupied!\n";
         return false;
     }
 
-    // 4. وضع الرمز في الصف والعمود الصحيحين
     board[r][c] = symbol;
-
-    // (يجب أن يتم زيادة عداد الحركات n_moves هنا)
     n_moves++; 
 
     return true;
 }
-
 
 bool Connect_Four_Board::is_win(Player<char>* player)
 {
@@ -140,8 +131,6 @@ bool Connect_Four_Board::game_is_over(Player<char>* player)
     return is_win(player) || is_lose(player) || is_draw(player); 
 }
 
-
-
 bool Connect_Four_Board::is_position_available(int number, bool is_player1)
 {
     int col = number ; 
@@ -159,34 +148,33 @@ vector<int> Connect_Four_Board::get_available_position(bool is_player1)
     return is_available; 
 }
 
+
 Connect_Four_UI::Connect_Four_UI() : UI<char>("Welcome to Connect Four Game!", 3) {}
 
-
-void Connect_Four_Board::display_board()
+void Connect_Four_UI::display_board_matrix(const vector<vector<char>>& matrix) const
 {
+    if (matrix.empty() || matrix[0].empty()) return;
+
+    int rows = matrix.size();
+    int cols = matrix[0].size();
+    int cell_width = 3;  
+
+    cout << "\n   ";  
+    for (int j = 0; j < cols; ++j) {
+        if (j > 0) cout << " ";
+        cout << setw(cell_width + 1) << j;
+    }
     cout << "\n";
-    // طباعة الصفوف من فوق لتحت
-    for (int r = 0; r < rows; r++)
-    {
-        cout << "| ";
-        for (int c = 0; c < columns; c++)
-        {
-            cout << board[r][c] << " | ";
-        }
-        cout << "\n";
-    }
+    cout << "   " << string((cell_width + 2) * cols, '-') << "\n";
 
-    // خط تحت البورد
-    cout << string(columns * 4 + 1, '-') << "\n  ";
-
-    // أرقام الأعمدة
-    for (int c = 1; c <= columns; c++)
-    {
-        cout << c << "   ";
+    for (int i = 0; i < rows; ++i) {
+        cout << setw(2) << i << " |";
+        for (int j = 0; j < cols; ++j)
+            cout << setw(cell_width) << matrix[i][j] << " |";
+        cout << "\n   " << string((cell_width + 2) * cols, '-') << "\n";
     }
-    cout << "\n\n";
+    cout << endl;
 }
-
 
 Player<char>* Connect_Four_UI::create_player(string& name, char symbol, PlayerType type)
 {
@@ -197,7 +185,7 @@ Move<char>* Connect_Four_UI::get_move(Player<char>* player)
 {
     char player_symbol = player->get_symbol();
 
-    // === COMPUTER MOVE (سليم) ===
+    // COMPUTER MOVE
     if (player->get_type() == PlayerType::COMPUTER)
     {
         Connect_Four_Board* board =
@@ -208,33 +196,31 @@ Move<char>* Connect_Four_UI::get_move(Player<char>* player)
         int col = available[rand() % available.size()];
         cout << "\nComputer chooses column " << col + 1 << endl;
 
-        return new Move<char>(col + 1, 0, player_symbol); // صح
+        return new Move<char>(col + 1, 0, player_symbol); 
     }
 
-
-    // === HUMAN MOVE (كان غلط – هيتصلح هنا) ===
+    // HUMAN MOVE 
     int col;
     while (true)
     {
         cout << "\n" << player->get_name()
             << " (Your symbol is " << player_symbol
-            << ") choose a COLUMN (1 to 7): ";
+            << ") choose a column (0 to 6): ";
 
-        if (cin >> col && col >= 1 && col <= 7)
+        if (cin >> col && col >= 0 && col <= 6)
         {
             break;
         }
         else
         {
-            cout << "Invalid input! Please enter a number between 1 and 7.\n";
+            cout << "Invalid input! Please enter a number between 0 and 6.\n";
             cin.clear();
             cin.ignore(10000, '\n');
         }
     }
 
-    return new Move<char>(col, 0, player_symbol); // 👈 عمود فقط
+    return new Move<char>(col, 0, player_symbol); 
 }
-
 
 Player<char>** Connect_Four_UI::setup_players()
 {
@@ -286,4 +272,3 @@ Player<char>** Connect_Four_UI::setup_players()
 
     return players;
 }
-*/
