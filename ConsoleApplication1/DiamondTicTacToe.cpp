@@ -62,9 +62,9 @@ bool DiamondTicTacToe_Board::is_valid_cell(int x, int y) const {
 bool DiamondTicTacToe_Board::check_line(int x, int y, char sym, int dx, int dy, int required_length) {
     int count1 = 0;
     for (int i = 1; i < required_length; i++) {
-        int nx = x + i * dx;
-        int ny = y + i * dy;
-        if (is_valid_cell(nx, ny) && board[nx][ny] == sym) {
+        int next_x = x + i * dx;
+        int next_y = y + i * dy;
+        if (is_valid_cell(next_x, next_y) && board[next_x][next_y] == sym) {
             count1++;
         }
         else {
@@ -74,9 +74,9 @@ bool DiamondTicTacToe_Board::check_line(int x, int y, char sym, int dx, int dy, 
 
     int count2 = 0;
     for (int i = 1; i < required_length; i++) {
-        int nx = x - i * dx;
-        int ny = y - i * dy;
-        if (is_valid_cell(nx, ny) && board[nx][ny] == sym) {
+        int next_x = x - i * dx;
+        int next_y = y - i * dy;
+        if (is_valid_cell(next_x, next_y) && board[next_x][next_y] == sym) {
             count2++;
         }
         else {
@@ -86,47 +86,39 @@ bool DiamondTicTacToe_Board::check_line(int x, int y, char sym, int dx, int dy, 
     return (count1 + count2 + 1) >= required_length;
 }
 
-bool DiamondTicTacToe_Board::check_double_win_for_last_move() {
-    if (last_move_x == -1 || last_move_y == -1) return false;
-
-    char sym = last_move_symbol;
+bool DiamondTicTacToe_Board::check_double_win_at_cell(int x, int y, char sym) {
+    if (!is_valid_cell(x, y) || board[x][y] != sym) return false;
     vector<pair<int, int>> directions = {
-        {0, 1}, 
-        {1, 0},   
-        {1, 1},   
-        {1, -1}    
+        {0, 1}, // Horizontal
+        {1, 0}, // Vertical  
+        {1, 1}, // Main Diagonal  
+        {1, -1} // Second Diagonal   
     };
 
-    bool has_three = false;
-    bool has_four = false;
     set<int> three_directions;
     set<int> four_directions;
 
     for (int d = 0; d < directions.size(); d++) {
-        int dx = directions[d].first;
-        int dy = directions[d].second;
-        if (check_line(last_move_x, last_move_y, sym, dx, dy, 4)) {
-            has_four = true;
+        int direction_x = directions[d].first;
+        int direction_y = directions[d].second;
+        if (check_line(x, y, sym, direction_x, direction_y, 4)) {
             four_directions.insert(d);
         }
-        if (check_line(last_move_x, last_move_y, sym, dx, dy, 3)) {
-            has_three = true;
+        if (check_line(x, y, sym, direction_x, direction_y, 3)) {
             three_directions.insert(d);
         }
     }
-    if (has_three && has_four) {
-
-        for (int d3 : three_directions) {
-            for (int d4 : four_directions) {
-                if (d3 != d4) {
-                    return true;
-                }
-            }
-        }
+    if (three_directions.empty() || four_directions.empty()) {
         return false;
     }
-
-    return false;
+    for (int d3 : three_directions) {
+        for (int d4 : four_directions) {
+            if (d3 != d4) {
+                return true;
+            }
+        }
+    }
+        return false;
 }
 
 bool DiamondTicTacToe_Board::is_win(Player<char>* player) {
@@ -134,22 +126,9 @@ bool DiamondTicTacToe_Board::is_win(Player<char>* player) {
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < columns; ++j) {
             if (is_valid_cell(i, j) && board[i][j] == sym) {
-                int original_x = last_move_x;
-                int original_y = last_move_y;
-                char original_sym = last_move_symbol;
-
-                last_move_x = i;
-                last_move_y = j;
-                last_move_symbol = sym;
-                if (check_double_win_for_last_move()) {
-                    last_move_x = original_x;
-                    last_move_y = original_y;
-                    last_move_symbol = original_sym;
+                if (check_double_win_at_cell(i, j, sym)) {
                     return true;
                 }
-                last_move_x = original_x;
-                last_move_y = original_y;
-                last_move_symbol = original_sym;
             }
         }
     }
@@ -158,27 +137,15 @@ bool DiamondTicTacToe_Board::is_win(Player<char>* player) {
 
 bool DiamondTicTacToe_Board::is_lose(Player<char>* player) {
     char opponent_sym = (player->get_symbol() == 'X') ? 'O' : 'X';
-    int temp_x = last_move_x;
-    int temp_y = last_move_y;
-    char temp_sym = last_move_symbol;
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < columns; ++j) {
             if (is_valid_cell(i, j) && board[i][j] == opponent_sym) {
-                last_move_x = i;
-                last_move_y = j;
-                last_move_symbol = opponent_sym;
-                if (check_double_win_for_last_move()) {
-                    last_move_x = temp_x;
-                    last_move_y = temp_y;
-                    last_move_symbol = temp_sym;
+                if (check_double_win_at_cell(i, j, opponent_sym)) {
                     return true;
                 }
             }
         }
     }
-    last_move_x = temp_x;
-    last_move_y = temp_y;
-    last_move_symbol = temp_sym;
     return false;
 }
 

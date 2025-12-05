@@ -27,7 +27,7 @@ public:
 
 private:
     bool check_line(int x, int y, char sym, int dx, int dy, int required_length);
-    bool check_double_win_for_last_move();
+    bool check_double_win_at_cell(int x, int y, char sym);
 };
 
 //====================== DiamondTicTacToe_UI Class ======================
