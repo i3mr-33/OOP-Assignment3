@@ -1,16 +1,17 @@
-﻿#ifndef TICTACTOE5x5_CLASSES_H
-#define TICTACTOE5x5_CLASSES_H
+﻿#ifndef TICTACTOE5X5_CLASSES_H
+#define TICTACTOE5X5_CLASSES_H
 
 #include "BoardGame_Classes.h"
-#include <iostream>
-#include <iomanip>
-#include <cctype>
+#include <vector>
+#include <cstdlib>
+#include <ctime>
 using namespace std;
-
-//====================== TicTacToe5x5_Board Class ======================
 class TicTacToe5x5_Board : public Board<char> {
 private:
     char blank_symbol = '.'; 
+
+    /** count how many 3-in-a-row segments player with `sym` has */
+    int count_three_in_row(char sym) const;
 
 public:
     TicTacToe5x5_Board();
@@ -20,21 +21,16 @@ public:
     bool is_lose(Player<char>* player) override;
     bool is_draw(Player<char>* player) override;
     bool game_is_over(Player<char>* player) override;
-
-    void print_scores_and_winner();
-
-private:
-    int count_three_in_row(char sym);
+    int get_score(char sym) const  { return count_three_in_row(sym); };
 };
 
-//====================== TicTacToe5x5_UI Class ======================
 class TicTacToe5x5_UI : public UI<char> {
 public:
     TicTacToe5x5_UI();
-    ~TicTacToe5x5_UI();
+    ~TicTacToe5x5_UI() {}
 
     Player<char>* create_player(string& name, char symbol, PlayerType type) override;
     Move<char>* get_move(Player<char>* player) override;
 };
 
-#endif // TICTACTOE5x5_CLASSES_H
+#endif // TICTACTOE5X5_CLASSES_H
