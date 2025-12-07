@@ -1,4 +1,4 @@
-﻿
+
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
@@ -12,11 +12,13 @@
 #include "TicTacToe5x5_Classes.h"
 #include "DiamondTicTacToe.h"
 #include "Four-in-a-rowTicTacToe.h"
+#include "Obstacles_TTT_classes.h"
+#include "WordTTT_Classes.h"
 
 using namespace std;
 
-
-void playNumericalTicTacToe() {
+void playNumericalTicTacToe()
+{
     cout << "\n=== Starting Numerical Tic-Tac-Toe ===\n";
 
     // Seed random number generator
@@ -33,7 +35,8 @@ void playNumericalTicTacToe() {
 
     // Cleanup memory
     delete numerical_board;
-    for (int i = 0; i < 2; ++i) {
+    for (int i = 0; i < 2; ++i)
+    {
         delete players[i];
     }
     delete[] players;
@@ -41,11 +44,12 @@ void playNumericalTicTacToe() {
 
     cout << "=== Game Finished ===\n\n";
 }
-void playInverseTicTacToe() {
+void playInverseTicTacToe()
+{
     cout << "\n=== Starting Inverse Tic-Tac-Toe ===\n";
-    srand(static_cast<unsigned int>(time(0)));  // Seed the random number generator
+    srand(static_cast<unsigned int>(time(0))); // Seed the random number generator
 
-    // Create an instance of the specific UI for X-O using a pointer 
+    // Create an instance of the specific UI for X-O using a pointer
     UI<char>* game_ui = new InverseTicTacToe_UI();
 
     // Create the game board. For X-O, this is an X_O_Board.
@@ -58,21 +62,21 @@ void playInverseTicTacToe() {
     // Create the game manager with the board and the array of players.
     GameManager<char> x_o_game(xo_board, players, game_ui);
     x_o_game.run();
-    for (int i = 0; i < 2; ++i) {
+    for (int i = 0; i < 2; ++i)
+    {
         delete players[i];
     }
     delete[] players;
     delete game_ui;
     cout << "=== Game Finished ===\n\n";
-
 }
-void playPyramidXO() {
+void playPyramidXO()
+{
 
     cout << "\n=== Starting Pyramid Tic-Tac-Toe ===\n";
 
     UI<char>* game_ui = new PyramidXO_UI();
     Board<char>* pyramid_board = new PyramidX_O_Board();
-
 
     Player<char>** players = game_ui->setup_players();
 
@@ -81,7 +85,8 @@ void playPyramidXO() {
     pyramid_game.run();
 
     delete pyramid_board;
-    for (int i = 0; i < 2; ++i) {
+    for (int i = 0; i < 2; ++i)
+    {
         delete players[i];
     }
     delete[] players;
@@ -90,8 +95,8 @@ void playPyramidXO() {
     cout << "=== Game Finished ===\n\n";
 }
 
-
-void playSUS() {
+void playSUS()
+{
     cout << "\n === Starting SUS Game ===\n";
 
     // Seed random number generator
@@ -108,16 +113,17 @@ void playSUS() {
 
     // Cleanup memory
     delete SUS_board;
-    for (int i = 0; i < 2; ++i) {
+    for (int i = 0; i < 2; ++i)
+    {
         delete players[i];
     }
     delete[] players;
     delete game_ui;
 
     cout << "=== Game Finished ===\n\n";
-
 }
-void Play4x4() {
+void Play4x4()
+{
     cout << "\n === Starting 4x4 Tic-Tac-Toe Game ===\n";
 
     // Seed random number generator
@@ -134,20 +140,21 @@ void Play4x4() {
 
     // Cleanup memory
     delete TicTacToe4x4_board;
-    for (int i = 0; i < 2; ++i) {
+    for (int i = 0; i < 2; ++i)
+    {
         delete players[i];
     }
     delete[] players;
     delete game_ui;
 
     cout << "=== Game Finished ===\n\n";
-
 }
-void playInfinityTicTacToe() {
+void playInfinityTicTacToe()
+{
     cout << "\n=== Starting Infinite Tic-Tac-Toe ===\n";
-    srand(static_cast<unsigned int>(time(0)));  // Seed the random number generator
+    srand(static_cast<unsigned int>(time(0))); // Seed the random number generator
 
-    // Create an instance of the specific UI for X-O using a pointer 
+    // Create an instance of the specific UI for X-O using a pointer
     UI<char>* game_ui = new Infinity_UI();
 
     // Create the game board. For X-O, this is an X_O_Board.
@@ -160,43 +167,44 @@ void playInfinityTicTacToe() {
     // Create the game manager with the board and the array of players.
     GameManager<char> x_o_game(xo_board, players, game_ui);
     x_o_game.run();
-    for (int i = 0; i < 2; ++i) {
+    for (int i = 0; i < 2; ++i)
+    {
         delete players[i];
     }
     delete[] players;
     delete game_ui;
     cout << "=== Game Finished ===\n\n";
-
 }
-void play5x5TicTacToe() {
-    cout << "\n=== Starting Infinite Tic-Tac-Toe ===\n";
-    srand(static_cast<unsigned int>(time(0)));  // Seed the random number generator
+void play5x5TicTacToe()
+{
+    cout << "\n=== Starting 5x5 Tic-Tac-Toe ===\n";
+    srand(static_cast<unsigned int>(time(0))); // Seed the random number generator
 
-    // Create an instance of the specific UI for X-O using a pointer 
-    UI<char>* game_ui = new TicTacToe5x5_UI();
+    // Create an instance of the specific UI for X-O using a pointer
+    TicTacToe5x5_UI* ui = new TicTacToe5x5_UI();
 
     // Create the game board. For X-O, this is an X_O_Board.
-    Board<char>* xo_board = new TicTacToe5x5_Board();
+    TicTacToe5x5_Board* board = new TicTacToe5x5_Board();
 
     // Use the UI to set up the players for the game.
     // The UI returns a dynamically allocated array of Player pointers.
-    Player<char>** players = game_ui->setup_players();
+    Player<char>** players = ui->setup_players();
 
     // Create the game manager with the board and the array of players.
-    GameManager<char> x_o_game(xo_board, players, game_ui);
-    x_o_game.run();
-    for (int i = 0; i < 2; ++i) {
-        delete players[i];
-    }
+    GameManager<char> gm(board, players, ui);
+    gm.run();
+    delete players[0];
+    delete players[1];
     delete[] players;
-    delete game_ui;
+    delete board;
+    delete ui;
     cout << "=== Game Finished ===\n\n";
-
 }
 
-void playDiamondTicTacToe() {
+void playDiamondTicTacToe()
+{
     cout << "\n=== Starting Diamond Tic-Tac-Toe ===\n";
-    srand(static_cast<unsigned int>(time(0)));  // Seed the random number generator
+    srand(static_cast<unsigned int>(time(0))); // Seed the random number generator
 
     // Create an instance of the specific UI for Diamond Tic-Tac-Toe
     UI<char>* game_ui = new DiamondTicTacToe_UI();
@@ -212,7 +220,8 @@ void playDiamondTicTacToe() {
     diamond_game.run();
 
     // Clean up
-    for (int i = 0; i < 2; ++i) {
+    for (int i = 0; i < 2; ++i)
+    {
         delete players[i];
     }
     delete[] players;
@@ -221,7 +230,8 @@ void playDiamondTicTacToe() {
     cout << "=== Diamond Tic-Tac-Toe Finished ===\n\n";
 }
 
-void playConnectFour() {
+void playConnectFour()
+{
     cout << "\n === Starting Connect Four Game ===\n";
 
     // Seed random number generator
@@ -238,38 +248,109 @@ void playConnectFour() {
 
     // Cleanup memory
     delete Connect_Four_board;
-    for (int i = 0; i < 2; ++i) {
+    for (int i = 0; i < 2; ++i)
+    {
         delete players[i];
     }
     delete[] players;
     delete game_ui;
 
     cout << "=== Game Finished ===\n\n";
+}
+void ObstacleTicTacToe() {
+    cout << "\n=== Starting Obstacle Tic-Tac-Toe ===\n";
+    srand(static_cast<unsigned int>(time(0)));
+
+    // Create game components
+    Obstacles_UI* game_ui = new Obstacles_UI();
+    Obstacles_Board* obs_board = new Obstacles_Board();
+
+    // Link UI to board
+    game_ui->set_board(obs_board);
+
+    // Setup players
+    Player<char>** players = game_ui->setup_players();
+
+    // Create and run game manager
+    GameManager<char> obs_game(obs_board, players, game_ui);
+    obs_game.run();
+
+    // Cleanup
+    delete obs_board;
+    for (int i = 0; i < 2; ++i) {
+        delete players[i];
+    }
+    delete[] players;
+    delete game_ui;
+
+
+    cout << "=== Game Finished ===\n\n";
 
 }
+void playWordTicTacToe()
+{
+    srand(static_cast<unsigned int>(time(0)));
 
+    WordTTT_UI* ui = new WordTTT_UI();
+    WordTTT_Board* board = new WordTTT_Board();
 
-void displayMenu() {
-    cout << "=========================================\n";
-    cout << "      FCAI Board Games Collection       \n";
-    cout << "             Part 1 - CS213            \n";
-    cout << "=========================================\n";
+    cout << "Choose Player-one (1. Human, 2. Computer): ";
+    int t1;
+    cin >> t1;
+
+    cout << "Choose Player-Two (1. Human, 2. Computer): ";
+    int t2;
+    cin >> t2;
+
+    Player<char>* players[2];
+
+    PlayerType type1 = (t1 == 2 ? PlayerType::COMPUTER : PlayerType::HUMAN);
+    PlayerType type2 = (t2 == 2 ? PlayerType::COMPUTER : PlayerType::HUMAN);
+
+    string n1 = "Player-one";
+    string n2 = "Player-Two";
+
+    players[0] = new Player<char>(n1, '?', type1);
+    players[1] = new Player<char>(n2, '?', type2);
+
+    players[0]->set_board_ptr(board);
+    players[1]->set_board_ptr(board);
+
+    GameManager<char> gm(board, players, ui);
+    gm.run();
+
+    delete players[0];
+    delete players[1];
+    delete board;
+    delete ui;
+
+    cout << "=== Word Tic-Tac-Toe Finished ===\n\n";
+}
+void displayMenu()
+{
+    cout << "============================================\n";
+    cout << "Assignment3 FCAI Board Games Collection\n";
+    cout << "============================================\n";
+    cout << "============================================\n";
     cout << "1. Play Numerical Tic-Tac-Toe (Game 9)\n";
     cout << "2. Play Inverse Tic-Tac-Toe (Game 5)\n";
-	cout << "3. Play Pyramid Tic-Tac-Toe (Game 8)\n";
+    cout << "3. Play Pyramid Tic-Tac-Toe (Game 8)\n";
     cout << "4. PLay SUS Tic-Tac-Toe (Game 1)\n";
     cout << "5. PLay 4x4 Tic-Tac-Toe (Game 7)\n";
-	cout << "6. Play Infinity Tic-Tac-Toe (Game 11)\n";
-	cout << "7. Play 5x5 Tic-Tac-Toe (Game 3)\n";
+    cout << "6. Play Infinity Tic-Tac-Toe (Game 11)\n";
+    cout << "7. Play 5x5 Tic-Tac-Toe (Game 3)\n";
     cout << "8. Play Diamond Tic-Tac-Toe (Game 6)\n";
-    cout << "9. Play Connect Four Tic-Tac-Toe (Game 2) \n"; 
-    cout << "10. Exit Program\n";
-    cout << "=========================================\n";
-    cout << "Enter your choice (1-10): ";
+    cout << "9. Play Connect Four Tic-Tac-Toe (Game 2) \n";
+    cout << "10. Play Obstacles Tic-Tac-Toe (Game 10) \n";
+    cout << "11. Play Word Tic-Tac-Toe (Game 4) \n";
+    cout << "12. Exit Program\n";
+    cout << "============================================\n";
+    cout << "Enter your choice (1-12): ";
+
 }
 
-
-int main() {
+int main()
+{
     int choice;
 
     // Seed random number generator for the entire program
@@ -277,7 +358,8 @@ int main() {
 
     cout << "Welcome to FCAI Board Games - Assignment 3\n";
 
-    do {
+    do
+    {
         displayMenu();
         cin >> choice;
 
@@ -285,43 +367,49 @@ int main() {
         cin.clear();
         cin.ignore(10000, '\n');
 
-        switch (choice) {
+        switch (choice)
+        {
         case 1:
             playNumericalTicTacToe();
-            break; 
+            break;
         case 2:
             playInverseTicTacToe();
             break;
         case 3:
             playPyramidXO();
-			break;
+            break;
         case 4:
-            playSUS(); 
-            break; 
+            playSUS();
+            break;
         case 5:
             Play4x4();
             break;
-		case 6:
+        case 6:
             playInfinityTicTacToe();
-			break;
+            break;
         case 7:
             play5x5TicTacToe();
-			break;
+            break;
         case 8:
             playDiamondTicTacToe();
             break;
-        case 9 :
-            playConnectFour(); 
-            break; 
+        case 9:
+            playConnectFour();
+            break;
         case 10:
+            ObstacleTicTacToe();
+            break;
+        case 11:
+            playWordTicTacToe();
+            break;
+        case 12:
             cout << "\nThank you for playing FCAI Board Games!\n";
             cout << "Goodbye!\n";
             break;
         default:
-            cout << "Invalid choice! Please enter 1 or 9.\n\n";
+            cout << "Invalid choice! Please enter 1 or 11.\n\n";
         }
 
-
-    } while (choice != 10);
+    } while (choice != 12);
     return 0;
 }
