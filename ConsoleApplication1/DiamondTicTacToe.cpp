@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <set>
+#include <climits>
 
 //====================== DiamondTicTacToe_Board Implementation ======================
 
@@ -173,6 +174,60 @@ bool DiamondTicTacToe_Board::game_is_over(Player<char>* player) {
     return is_draw(player);
 }
 
+int DiamondTicTacToe_Board::check_status() {
+    Player<char> X_player("X", 'X', PlayerType::COMPUTER);
+    Player<char> O_player("O", 'O', PlayerType::COMPUTER);
+    X_player.set_board_ptr(this);
+    O_player.set_board_ptr(this);
+    if (is_win(&X_player)) return 2;
+    if (is_win(&O_player)) return -2;
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < columns; ++j) {
+            if (is_valid_cell(i, j) && board[i][j] == blank_symbol) {
+                return 1;
+            }
+        }
+    }
+    return 0;
+}
+
+int DiamondTicTacToe_Board::minimax(int& x, int& y, bool is_maximizing, bool first_time, int depth) {
+    int best_score = is_maximizing ? INT_MIN : INT_MAX;
+    int best_i = -1, best_j = -1;
+    int result = check_status();
+    if (result != 1 || depth >= 2) {
+        return result;
+    }
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < columns; j++) {
+            if (is_valid_cell(i, j) && board[i][j] == blank_symbol) {
+                board[i][j] = is_maximizing ? 'X' : 'O';
+                int score = minimax(x, y, !is_maximizing, false, depth + 1);
+                board[i][j] = blank_symbol;
+                if (is_maximizing) {
+                    if (score > best_score) {
+                        best_score = score;
+                        best_i = i;
+                        best_j = j;
+                    }
+                }
+                else {
+                    if (score < best_score) {
+                        best_score = score;
+                        best_i = i;
+                        best_j = j;
+                    }
+                }
+            }
+        }
+    }
+    if (first_time) {
+        x = best_i;
+        y = best_j;
+    }
+    return best_score;
+}
+
 //====================== DiamondTicTacToe_UI Implementation ======================
 
 DiamondTicTacToe_UI::DiamondTicTacToe_UI()
@@ -181,7 +236,7 @@ DiamondTicTacToe_UI::DiamondTicTacToe_UI()
 DiamondTicTacToe_UI::~DiamondTicTacToe_UI() {}
 
 Player<char>* DiamondTicTacToe_UI::create_player(string& name, char symbol, PlayerType type) {
-    cout << "Creating " << (type == PlayerType::HUMAN ? "Human" : "Computer")
+    cout << "Creating " << (type == PlayerType::HUMAN ? "Human" : "Ai")
         << " player: " << name << " (" << symbol << ")\n";
     return new Player<char>(name, symbol, type);
 }
@@ -202,32 +257,29 @@ Move<char>* DiamondTicTacToe_UI::get_move(Player<char>* player) {
         }
         return new Move<char>(x, y, player->get_symbol());
     }
-    else {
-        int rows = b->get_rows();
-        int cols = b->get_columns();
-        int tries = 0;
-
-        while (true) {
-            x = rand() % rows;
-            y = rand() % cols;
-            vector<vector<char>> mat = b->get_board_matrix();
-
-            if (mat[x][y] == '.') {
-                return new Move<char>(x, y, player->get_symbol());
-            }
-
-            if (++tries > 1000) {
-                for (int i = 0; i < rows; ++i) {
-                    for (int j = 0; j < cols; ++j) {
-                        if (mat[i][j] == '.') {
-                            return new Move<char>(i, j, player->get_symbol());
-                        }
-                    }
-                }
-            }
+    else if (player->get_type() == PlayerType::COMPUTER) {
+        DiamondTicTacToe_Board* board_ptr = dynamic_cast<DiamondTicTacToe_Board*>(player->get_board_ptr());
+        bool is_maximizing = (player->get_symbol() == 'X');
+        if (board_ptr) {
+            board_ptr->minimax(x, y, is_maximizing, true, 0);
+            cout << "\n" << player->get_name() << " (Ai) " << "chooses move : (" << x << ", " << y << ")\n";
         }
     }
+    return new Move<char>(x, y, player->get_symbol());
 }
+
+Player<char>** DiamondTicTacToe_UI::setup_players() {
+    Player<char>** players = new Player<char>*[2];
+    vector<string> type_options = { "Human", "AI" };
+    string nameX = get_player_name("Player X");
+    PlayerType typeX = get_player_type_choice("Player X", type_options);
+    players[0] = create_player(nameX, 'X', typeX);
+    string nameO = get_player_name("Player O");
+    PlayerType typeO = get_player_type_choice("Player O", type_options);
+    players[1] = create_player(nameO, 'O', typeO);
+    return players;
+}
+
 void DiamondTicTacToe_UI::display_board_matrix(const vector<vector<char>>& matrix) const {
 
     cout << "\n    0   1   2   3   4   5   6\n";

@@ -92,7 +92,7 @@ int InverseTicTacToe_Board::check_status() {
 }
 int InverseTicTacToe_Board::minimax(int& x, int& y, bool is_maximizing, bool first_time) {
     int max_score = INT_MIN, min_score = INT_MAX;
-    int Final_i, Final_j;
+    int best_i, best_j;
     int result = check_status();
     if (result != 1)
     {
@@ -112,8 +112,8 @@ int InverseTicTacToe_Board::minimax(int& x, int& y, bool is_maximizing, bool fir
                     if (score >= max_score)
                     {
                         max_score = score;
-                        Final_i = i;
-                        Final_j = j;
+                        best_i = i;
+                        best_j = j;
                     }
                 }
                 else
@@ -124,8 +124,8 @@ int InverseTicTacToe_Board::minimax(int& x, int& y, bool is_maximizing, bool fir
                     if (score <= min_score)
                     {
                         min_score = score;
-                        Final_i = i;
-                        Final_j = j;
+                        best_i = i;
+                        best_j = j;
                     }
                 }
             }
@@ -133,7 +133,7 @@ int InverseTicTacToe_Board::minimax(int& x, int& y, bool is_maximizing, bool fir
     }
     if (first_time)
     {
-        x = Final_i, y = Final_j;
+        x = best_i, y = best_j;
     }
     return (is_maximizing ? max_score : min_score);
 }
