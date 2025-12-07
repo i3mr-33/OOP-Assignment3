@@ -143,7 +143,7 @@ InverseTicTacToe_UI::InverseTicTacToe_UI() : UI<char>("Welcome to Inverse Tic - 
 
 Player<char>* InverseTicTacToe_UI::create_player(string& name, char symbol, PlayerType type) {
     // Create player based on type
-    cout << "Creating " << (type == PlayerType::HUMAN ? "human" : "computer")
+    cout << "Creating " << (type == PlayerType::HUMAN ? "human" : "AI")
         << " player: " << name << " (" << symbol << ")\n";
 
     return new Player<char>(name, symbol, type);
@@ -161,8 +161,20 @@ Move<char>* InverseTicTacToe_UI::get_move(Player<char>* player) {
         bool is_maximizing = (player->get_symbol() == 'X');
         if (board_ptr) {
             board_ptr->minimax(x, y, is_maximizing, true);
-            cout << "AI chose move: (" << x << ", " << y << ")\n";
+            cout << "\n" << player->get_name() << " (Ai) " << "chooses move : (" << x << ", " << y << ")\n";
         }
     }
     return new Move<char>(x, y, player->get_symbol());
+}
+
+Player<char>** InverseTicTacToe_UI::setup_players() {
+    Player<char>** players = new Player<char>*[2];
+    vector<string> type_options = { "Human", "AI" };
+    string nameX = get_player_name("Player X");
+    PlayerType typeX = get_player_type_choice("Player X", type_options);
+    players[0] = create_player(nameX, 'X', typeX);
+    string nameO = get_player_name("Player O");
+    PlayerType typeO = get_player_type_choice("Player O", type_options);
+    players[1] = create_player(nameO, 'O', typeO);
+    return players;
 }
