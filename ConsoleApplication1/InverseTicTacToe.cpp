@@ -82,6 +82,61 @@ bool InverseTicTacToe_Board::game_is_over(Player<char>* player) {
     return is_win(player) || is_draw(player);
 }
 
+int InverseTicTacToe_Board::check_status() {
+    Player<char> X_player("X", 'X', PlayerType::COMPUTER);
+    Player<char> O_player("O", 'O', PlayerType::COMPUTER);
+    if (is_lose(&O_player)) return 2;
+    if (is_lose(&X_player)) return -2;
+    if (n_moves == rows * columns) return 0;
+    return 1;
+}
+int InverseTicTacToe_Board::minimax(int& x, int& y, bool is_maximizing, bool first_time) {
+    int max_score = INT_MIN, min_score = INT_MAX;
+    int best_i, best_j;
+    int result = check_status();
+    if (result != 1)
+    {
+        return result;
+    }
+    for (int i = 0; i < rows; i++)
+    {
+        for (int j = 0; j < columns; j++)
+        {
+            if (board[i][j] == '.')
+            {
+                if (is_maximizing)
+                {
+                    board[i][j] = 'X';
+                    int score = minimax(x, y, false, false);
+                    board[i][j] = '.';
+                    if (score >= max_score)
+                    {
+                        max_score = score;
+                        best_i = i;
+                        best_j = j;
+                    }
+                }
+                else
+                {
+                    board[i][j] = 'O';
+                    int score = minimax(x, y, true, false);
+                    board[i][j] = '.';
+                    if (score <= min_score)
+                    {
+                        min_score = score;
+                        best_i = i;
+                        best_j = j;
+                    }
+                }
+            }
+        }
+    }
+    if (first_time)
+    {
+        x = best_i, y = best_j;
+    }
+    return (is_maximizing ? max_score : min_score);
+}
 //--------------------------------------- XO_UI Implementation
 
 InverseTicTacToe_UI::InverseTicTacToe_UI() : UI<char>("Welcome to Inverse Tic - Tac - Toe Game!", 3) {}
@@ -102,8 +157,12 @@ Move<char>* InverseTicTacToe_UI::get_move(Player<char>* player) {
         cin >> x >> y;
     }
     else if (player->get_type() == PlayerType::COMPUTER) {
-        x = rand() % player->get_board_ptr()->get_rows();
-        y = rand() % player->get_board_ptr()->get_columns();
+        InverseTicTacToe_Board* board_ptr = dynamic_cast<InverseTicTacToe_Board*>(player->get_board_ptr());
+        bool is_maximizing = (player->get_symbol() == 'X');
+        if (board_ptr) {
+            board_ptr->minimax(x, y, is_maximizing, true);
+            cout << "AI chose move: (" << x << ", " << y << ")\n";
+        }
     }
     return new Move<char>(x, y, player->get_symbol());
 }

@@ -2,17 +2,20 @@
 #include <cstdlib>
 #include <ctime>
 #include <set>
+#include <climits>
 
 //====================== DiamondTicTacToe_Board Implementation ======================
 
-DiamondTicTacToe_Board::DiamondTicTacToe_Board() : Board<char>(5, 5) {
+DiamondTicTacToe_Board::DiamondTicTacToe_Board() : Board<char>(7, 7) {
     for (int i = 0; i < rows; ++i)
         for (int j = 0; j < columns; ++j)
             board[i][j] = blank_symbol;
-    board[0][0] = board[0][1] = board[0][3] = board[0][4] = '#';
-    board[1][0] = board[1][4] = '#';
-    board[3][0] = board[3][4] = '#';
-    board[4][0] = board[4][1] = board[4][3] = board[4][4] = '#';
+    board[0][0] = board[0][1] = board[0][2] = board[0][4] = board[0][5] = board[0][6] = '#';
+    board[1][0] = board[1][1] = board[1][5] = board[1][6] = '#';
+    board[2][0] = board[2][6] = '#';
+    board[4][0] = board[4][6] = '#';
+    board[5][0] = board[5][1] = board[5][5] = board[5][6] = '#';
+    board[6][0] = board[6][1] = board[6][2] = board[6][4] = board[6][5] = board[6][6] = '#';
     n_moves = 0;
     last_move_x = -1; 
     last_move_y = -1;
@@ -23,7 +26,11 @@ bool DiamondTicTacToe_Board::update_board(Move<char>* move) {
     int y = move->get_y();
     char mark = move->get_symbol();
 
-    if (!is_valid_cell(x, y)) return false;
+    if (!is_valid_cell(x, y))
+    {
+        cout << "Cell (" << x << "," << y << ") is outside the diamond area and cannot be played. Please choose an available cell.\n";
+        return false;
+    }
 
     // Check if cell is empty
     if (board[x][y] != blank_symbol) {
@@ -56,9 +63,9 @@ bool DiamondTicTacToe_Board::is_valid_cell(int x, int y) const {
 bool DiamondTicTacToe_Board::check_line(int x, int y, char sym, int dx, int dy, int required_length) {
     int count1 = 0;
     for (int i = 1; i < required_length; i++) {
-        int nx = x + i * dx;
-        int ny = y + i * dy;
-        if (is_valid_cell(nx, ny) && board[nx][ny] == sym) {
+        int next_x = x + i * dx;
+        int next_y = y + i * dy;
+        if (is_valid_cell(next_x, next_y) && board[next_x][next_y] == sym) {
             count1++;
         }
         else {
@@ -68,9 +75,9 @@ bool DiamondTicTacToe_Board::check_line(int x, int y, char sym, int dx, int dy, 
 
     int count2 = 0;
     for (int i = 1; i < required_length; i++) {
-        int nx = x - i * dx;
-        int ny = y - i * dy;
-        if (is_valid_cell(nx, ny) && board[nx][ny] == sym) {
+        int next_x = x - i * dx;
+        int next_y = y - i * dy;
+        if (is_valid_cell(next_x, next_y) && board[next_x][next_y] == sym) {
             count2++;
         }
         else {
@@ -80,99 +87,66 @@ bool DiamondTicTacToe_Board::check_line(int x, int y, char sym, int dx, int dy, 
     return (count1 + count2 + 1) >= required_length;
 }
 
-bool DiamondTicTacToe_Board::check_double_win_for_last_move() {
-    if (last_move_x == -1 || last_move_y == -1) return false;
-
-    char sym = last_move_symbol;
+bool DiamondTicTacToe_Board::check_double_win_at_cell(int x, int y, char sym) {
+    if (!is_valid_cell(x, y) || board[x][y] != sym) return false;
     vector<pair<int, int>> directions = {
-        {0, 1}, 
-        {1, 0},   
-        {1, 1},   
-        {1, -1}    
+        {0, 1}, // Horizontal
+        {1, 0}, // Vertical  
+        {1, 1}, // Main Diagonal  
+        {1, -1} // Second Diagonal   
     };
 
-    bool has_three = false;
-    bool has_four = false;
     set<int> three_directions;
     set<int> four_directions;
 
     for (int d = 0; d < directions.size(); d++) {
-        int dx = directions[d].first;
-        int dy = directions[d].second;
-        if (check_line(last_move_x, last_move_y, sym, dx, dy, 4)) {
-            has_four = true;
+        int direction_x = directions[d].first;
+        int direction_y = directions[d].second;
+        if (check_line(x, y, sym, direction_x, direction_y, 4)) {
             four_directions.insert(d);
         }
-        if (check_line(last_move_x, last_move_y, sym, dx, dy, 3)) {
-            has_three = true;
+        if (check_line(x, y, sym, direction_x, direction_y, 3)) {
             three_directions.insert(d);
         }
     }
-    if (has_three && has_four) {
-
-        for (int d3 : three_directions) {
-            for (int d4 : four_directions) {
-                if (d3 != d4) {
-                    return true;
-                }
-            }
-        }
+    if (three_directions.empty() || four_directions.empty()) {
         return false;
     }
-
-    return false;
+    for (int d3 : three_directions) {
+        for (int d4 : four_directions) {
+            if (d3 != d4) {
+                return true;
+            }
+        }
+    }
+        return false;
 }
 
 bool DiamondTicTacToe_Board::is_win(Player<char>* player) {
     char sym = player->get_symbol();
-    int original_x = last_move_x;
-    int original_y = last_move_y;
-    char original_sym = last_move_symbol;
-    bool found_win = false;
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < columns; ++j) {
             if (is_valid_cell(i, j) && board[i][j] == sym) {
-                last_move_x = i;
-                last_move_y = j;
-                last_move_symbol = sym;
-                if (check_double_win_for_last_move()) {
-                    found_win = true;
-                    break;
-                }
-            }
-        }
-        if (found_win) break;
-    }
-
-    last_move_x = original_x;
-    last_move_y = original_y;
-    last_move_symbol = original_sym;
-    return found_win;
-}
-
-bool DiamondTicTacToe_Board::is_lose(Player<char>* player) {
-    char opponent_sym = (player->get_symbol() == 'X') ? 'O' : 'X';
-    int temp_x = last_move_x;
-    int temp_y = last_move_y;
-    char temp_sym = last_move_symbol;
-    for (int i = 0; i < rows; ++i) {
-        for (int j = 0; j < columns; ++j) {
-            if (is_valid_cell(i, j) && board[i][j] == opponent_sym) {
-                last_move_x = i;
-                last_move_y = j;
-                last_move_symbol = opponent_sym;
-                if (check_double_win_for_last_move()) {
-                    last_move_x = temp_x;
-                    last_move_y = temp_y;
-                    last_move_symbol = temp_sym;
+                if (check_double_win_at_cell(i, j, sym)) {
                     return true;
                 }
             }
         }
     }
-    last_move_x = temp_x;
-    last_move_y = temp_y;
-    last_move_symbol = temp_sym;
+    return false;
+}
+
+bool DiamondTicTacToe_Board::is_lose(Player<char>* player) {
+    char opponent_sym = (player->get_symbol() == 'X') ? 'O' : 'X';
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < columns; ++j) {
+            if (is_valid_cell(i, j) && board[i][j] == opponent_sym) {
+                if (check_double_win_at_cell(i, j, opponent_sym)) {
+                    return true;
+                }
+            }
+        }
+    }
     return false;
 }
 
@@ -200,6 +174,60 @@ bool DiamondTicTacToe_Board::game_is_over(Player<char>* player) {
     return is_draw(player);
 }
 
+int DiamondTicTacToe_Board::check_status() {
+    Player<char> X_player("X", 'X', PlayerType::COMPUTER);
+    Player<char> O_player("O", 'O', PlayerType::COMPUTER);
+    X_player.set_board_ptr(this);
+    O_player.set_board_ptr(this);
+    if (is_win(&X_player)) return 2;
+    if (is_win(&O_player)) return -2;
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < columns; ++j) {
+            if (is_valid_cell(i, j) && board[i][j] == blank_symbol) {
+                return 1;
+            }
+        }
+    }
+    return 0;
+}
+
+int DiamondTicTacToe_Board::minimax(int& x, int& y, bool is_maximizing, bool first_time, int depth) {
+    int best_score = is_maximizing ? INT_MIN : INT_MAX;
+    int best_i = -1, best_j = -1;
+    int result = check_status();
+    if (result != 1 || depth >= 2) {
+        return result;
+    }
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < columns; j++) {
+            if (is_valid_cell(i, j) && board[i][j] == blank_symbol) {
+                board[i][j] = is_maximizing ? 'X' : 'O';
+                int score = minimax(x, y, !is_maximizing, false, depth + 1);
+                board[i][j] = blank_symbol;
+                if (is_maximizing) {
+                    if (score > best_score) {
+                        best_score = score;
+                        best_i = i;
+                        best_j = j;
+                    }
+                }
+                else {
+                    if (score < best_score) {
+                        best_score = score;
+                        best_i = i;
+                        best_j = j;
+                    }
+                }
+            }
+        }
+    }
+    if (first_time) {
+        x = best_i;
+        y = best_j;
+    }
+    return best_score;
+}
+
 //====================== DiamondTicTacToe_UI Implementation ======================
 
 DiamondTicTacToe_UI::DiamondTicTacToe_UI()
@@ -208,7 +236,7 @@ DiamondTicTacToe_UI::DiamondTicTacToe_UI()
 DiamondTicTacToe_UI::~DiamondTicTacToe_UI() {}
 
 Player<char>* DiamondTicTacToe_UI::create_player(string& name, char symbol, PlayerType type) {
-    cout << "Creating " << (type == PlayerType::HUMAN ? "Human" : "Computer")
+    cout << "Creating " << (type == PlayerType::HUMAN ? "Human" : "Ai")
         << " player: " << name << " (" << symbol << ")\n";
     return new Player<char>(name, symbol, type);
 }
@@ -219,39 +247,57 @@ Move<char>* DiamondTicTacToe_UI::get_move(Player<char>* player) {
 
     if (player->get_type() == PlayerType::HUMAN) {
         cout << "\n" << player->get_name() << " (" << player->get_symbol()
-            << "), enter your move ( row and column , 0-4 ): ";
+            << "), enter your move ( row and column , 0-6 ): ";
         cin >> x >> y;
-        while (cin.fail() || x < 0 || x > 4 || y < 0 || y > 4) {
+        while (cin.fail() || x < 0 || x > 6 || y < 0 || y > 6) {
             cin.clear();
             cin.ignore(1000, '\n');
-            cout << "Invalid input. Please enter numbers between 0 and 4: ";
+            cout << "Invalid input. Please enter numbers between 0 and 6: ";
             cin >> x >> y;
         }
         return new Move<char>(x, y, player->get_symbol());
     }
-    else {
-        int rows = b->get_rows();
-        int cols = b->get_columns();
-        int tries = 0;
-
-        while (true) {
-            x = rand() % rows;
-            y = rand() % cols;
-            vector<vector<char>> mat = b->get_board_matrix();
-
-            if (mat[x][y] == '.') {
-                return new Move<char>(x, y, player->get_symbol());
-            }
-
-            if (++tries > 1000) {
-                for (int i = 0; i < rows; ++i) {
-                    for (int j = 0; j < cols; ++j) {
-                        if (mat[i][j] == '.') {
-                            return new Move<char>(i, j, player->get_symbol());
-                        }
-                    }
-                }
-            }
+    else if (player->get_type() == PlayerType::COMPUTER) {
+        DiamondTicTacToe_Board* board_ptr = dynamic_cast<DiamondTicTacToe_Board*>(player->get_board_ptr());
+        bool is_maximizing = (player->get_symbol() == 'X');
+        if (board_ptr) {
+            board_ptr->minimax(x, y, is_maximizing, true, 0);
+            cout << "\n" << player->get_name() << " (Ai) " << "chooses move : (" << x << ", " << y << ")\n";
         }
     }
+    return new Move<char>(x, y, player->get_symbol());
+}
+
+Player<char>** DiamondTicTacToe_UI::setup_players() {
+    Player<char>** players = new Player<char>*[2];
+    vector<string> type_options = { "Human", "AI" };
+    string nameX = get_player_name("Player X");
+    PlayerType typeX = get_player_type_choice("Player X", type_options);
+    players[0] = create_player(nameX, 'X', typeX);
+    string nameO = get_player_name("Player O");
+    PlayerType typeO = get_player_type_choice("Player O", type_options);
+    players[1] = create_player(nameO, 'O', typeO);
+    return players;
+}
+
+void DiamondTicTacToe_UI::display_board_matrix(const vector<vector<char>>& matrix) const {
+
+    cout << "\n    0   1   2   3   4   5   6\n";
+
+    cout << "               -+-               \n";
+    cout << "0             | " << matrix[0][3] << " | \n";
+    cout << "           ---+---+---           \n";
+    cout << "1         | " << matrix[1][2] << " | " << matrix[1][3] << " | " << matrix[1][4] << " |  \n";
+    cout << "       ---+---+---+---+---      \n";
+    cout << "2     | " << matrix[2][1] << " | " << matrix[2][2] << " | " << matrix[2][3] << " | " << matrix[2][4] << " | " << matrix[2][5] << " |    \n";
+    cout << "  +---+---+---+---+---+---+---+\n";
+    cout << "3 | " << matrix[3][0] << " | " << matrix[3][1] << " | " << matrix[3][2] << " | " << matrix[3][3] << " | " << matrix[3][4] << " | " << matrix[3][5] << " | " << matrix[3][6] << " |\n";
+    cout << "  +---+---+---+---+---+---+---+ \n";
+    cout << "4     | " << matrix[4][1] << " | " << matrix[4][2] << " | " << matrix[4][3] << " | " << matrix[4][4] << " | " << matrix[4][5] << " |    \n";
+    cout << "       ---+---+---+---+---      \n";
+    cout << "5         | " << matrix[5][2] << " | " << matrix[5][3] << " | " << matrix[5][4] << " |       \n";
+    cout << "           ---+---+---           \n";
+    cout << "6             | " << matrix[6][3] << " |    \n";
+    cout << "               -+-               \n";
+    cout << endl;
 }

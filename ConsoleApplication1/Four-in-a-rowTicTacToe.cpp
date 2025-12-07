@@ -1,7 +1,9 @@
-﻿/*#include "Four-in-a-rowTicTacToe.h"
+﻿#include "Four-in-a-rowTicTacToe.h"
+#include "BoardGame_Classes.h"
 #include <iostream>
+#include <iomanip>
+#include <cstdlib>
 using namespace std; 
-
 
 Connect_Four_Board::Connect_Four_Board() : Board(6, 7)
 {
@@ -69,7 +71,6 @@ bool Connect_Four_Board::check_Four(char mark)
                 return true;
         }
     }
-
     return false;
 }
 
@@ -77,47 +78,37 @@ bool Connect_Four_Board::update_board(Move<char>* move)
 {
     int ROWS = 6; 
     int COLS = 7; 
-    // نفترض أن move->get_x() هو رقم العمود (1-7) الذي اختاره اللاعب
-    int col_number = move->get_x();
+    
+    int c = move->get_x() ;
     char symbol = move->get_symbol();
 
-    // تحويل رقم العمود إلى فهرس (0-6)
-    int c = col_number - 1;
-
-    // 1. التحقق من صحة العمود
-    if (c < 0 || c >= COLS) // COLS = 7
+    if (c < 0 || c >= COLS) 
     {
         cout << "Invalid column! Column must be 0-6.\n";
         return false;
     }
-
 
     int r = -1; 
     for (int row = ROWS - 1 ; row >= 0; --row) 
     {
         if (board[row][c] == ' ')
         {
-            r = row; // وجدنا الصف الفارغ
+            r = row; 
             break;
         }
     }
 
-    // 3. التحقق مما إذا كان العمود ممتلئًا (لم يتم العثور على صف)
     if (r == -1)
     {
-        cout << "Column " << col_number << " is fully occupied!\n";
+        cout << "Column " << c << " is fully occupied!\n";
         return false;
     }
 
-    // 4. وضع الرمز في الصف والعمود الصحيحين
     board[r][c] = symbol;
-
-    // (يجب أن يتم زيادة عداد الحركات n_moves هنا)
     n_moves++; 
 
     return true;
 }
-
 
 bool Connect_Four_Board::is_win(Player<char>* player)
 {
@@ -140,8 +131,6 @@ bool Connect_Four_Board::game_is_over(Player<char>* player)
     return is_win(player) || is_lose(player) || is_draw(player); 
 }
 
-
-
 bool Connect_Four_Board::is_position_available(int number, bool is_player1)
 {
     int col = number ; 
@@ -158,4 +147,128 @@ vector<int> Connect_Four_Board::get_available_position(bool is_player1)
     }
     return is_available; 
 }
-*/
+
+
+Connect_Four_UI::Connect_Four_UI() : UI<char>("Welcome to Connect Four Game!", 3) {}
+
+void Connect_Four_UI::display_board_matrix(const vector<vector<char>>& matrix) const
+{
+    if (matrix.empty() || matrix[0].empty()) return;
+
+    int rows = matrix.size();
+    int cols = matrix[0].size();
+    int cell_width = 3;  
+
+    cout << "\n   ";  
+    for (int j = 0; j < cols; ++j) {
+        if (j > 0) cout << " ";
+        cout << setw(cell_width + 1) << j;
+    }
+    cout << "\n";
+    cout << "   " << string((cell_width + 2) * cols, '-') << "\n";
+
+    for (int i = 0; i < rows; ++i) {
+        cout << setw(2) << i << " |";
+        for (int j = 0; j < cols; ++j)
+            cout << setw(cell_width) << matrix[i][j] << " |";
+        cout << "\n   " << string((cell_width + 2) * cols, '-') << "\n";
+    }
+    cout << endl;
+}
+
+Player<char>* Connect_Four_UI::create_player(string& name, char symbol, PlayerType type)
+{
+    return new Player<char>(name, symbol, type);
+}
+
+Move<char>* Connect_Four_UI::get_move(Player<char>* player)
+{
+    char player_symbol = player->get_symbol();
+
+    // COMPUTER MOVE
+    if (player->get_type() == PlayerType::COMPUTER)
+    {
+        Connect_Four_Board* board =
+            dynamic_cast<Connect_Four_Board*>(player->get_board_ptr());
+
+        vector<int> available = board->get_available_position(true);
+
+        int col = available[rand() % available.size()];
+        cout << "\nComputer chooses column " << col + 1 << endl;
+
+        return new Move<char>(col + 1, 0, player_symbol); 
+    }
+
+    // HUMAN MOVE 
+    int col;
+    while (true)
+    {
+        cout << "\n" << player->get_name()
+            << " (Your symbol is " << player_symbol
+            << ") choose a column (0 to 6): ";
+
+        if (cin >> col && col >= 0 && col <= 6)
+        {
+            break;
+        }
+        else
+        {
+            cout << "Invalid input! Please enter a number between 0 and 6.\n";
+            cin.clear();
+            cin.ignore(10000, '\n');
+        }
+    }
+
+    return new Move<char>(col, 0, player_symbol); 
+}
+
+Player<char>** Connect_Four_UI::setup_players()
+{
+    Player<char>** players = new Player<char>*[2];
+    vector<string> type_options = { "Human", "Computer" };
+
+    // 1. Player 1
+
+    // Name
+    string name1 = get_player_name("Player 1");
+
+    // Type
+    PlayerType type1 = get_player_type_choice("Player 1", type_options);
+
+    // Symbol 
+    cout << "\n" << name1 << ", choose your symbol:\n"
+        << "1) X\n"
+        << "2) O\n";
+
+    int symbol_choice;
+    while (true)
+    {
+        cout << "Enter choice (1 or 2): ";
+        if (cin >> symbol_choice && (symbol_choice == 1 || symbol_choice == 2))
+        {
+            cin.ignore(10000, '\n');
+            break;
+        }
+        cout << "Invalid input! Please enter 1 or 2.\n";
+        cin.clear();
+        cin.ignore(10000, '\n');
+    }
+
+    char symbol1 = (symbol_choice == 1 ? 'X' : 'O');
+    char symbol2 = (symbol1 == 'X' ? 'O' : 'X');
+
+    players[0] = create_player(name1, symbol1, type1);
+
+    // 2. Player 2
+
+    // Name 
+    string name2;
+    name2 = get_player_name("Player 2 (uses " + string(1, symbol2) + ")");
+
+    // Type
+    PlayerType type2 = get_player_type_choice("Player 2", type_options);
+
+    players[1] = create_player(name2, symbol2, type2);
+
+    return players;
+}

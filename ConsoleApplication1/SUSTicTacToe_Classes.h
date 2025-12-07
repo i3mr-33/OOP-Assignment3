@@ -10,21 +10,20 @@ private:
     int score_S;
     int score_U;
     int total_sus_count;
-    int count_SUS_sequences();
 
 public:
     
     SUS_Board();
 
-   
+    int count_SUS_sequences();
+    int minimax(int& x, int& y, bool isMaximizing, bool firstStep);
+    int check_status(); 
+
     bool update_board(Move<char>* move) ;
     bool is_win(Player<char>* player) ;
     bool is_lose(Player<char>* player) ;
     bool is_draw(Player<char>* player) ;
     bool game_is_over(Player<char>* player) ;
-
-    bool is_position_available(int number, bool is_player1) ;
-    vector<int> get_available_position(bool is_player1) ;
  
 };
 
@@ -39,4 +38,13 @@ public:
     Move<char>* get_move(Player<char>* player) ;
    
     Player<char>** setup_players() ;
+};
+
+
+class AI_Player : public Player<char> {
+private : 
+    SUS_Board* board;
+public : 
+    AI_Player(char symbol, SUS_Board* b); 
+    void get_best_move(int& y, int& x);
 };

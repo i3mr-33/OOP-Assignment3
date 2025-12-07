@@ -67,9 +67,12 @@ public:
      * @return true if the game has ended, false otherwise.
      */
     bool game_is_over(Player<char>* player);
+
+    int minimax(int& x, int& y, bool is_maximizing, bool first_time);
+
+    int check_status();
 };
-
-
+ 
 /**
  * @class XO_UI
  * @brief User Interface class for the X-O (Tic-Tac-Toe) game.
