@@ -14,7 +14,7 @@ SUS_Board::SUS_Board() : Board(3, 3)
             cell = ' ';
 
     sus = "SUS";
-    score_S = 0; 
+    score_S = 0;
     score_U = 0;
     total_sus_count = 0;
 }
@@ -71,7 +71,7 @@ bool SUS_Board::update_board(Move<char>* move)
     }
 
     board[x][y] = symbol;
-    n_moves++; 
+    n_moves++;
 
     int new_total_sus_count = count_SUS_sequences();
     int points_gained = new_total_sus_count - total_sus_count;
@@ -79,14 +79,13 @@ bool SUS_Board::update_board(Move<char>* move)
     if (points_gained > 0)
     {
         if (symbol == 'S')
-            score_S += points_gained; 
+            score_S += points_gained;
         else
-            score_U += points_gained; 
+            score_U += points_gained;
     }
 
     total_sus_count = new_total_sus_count;
-    return true; 
-
+    return true;
 }
 
 bool SUS_Board::is_win(Player<char>* player)
@@ -125,31 +124,100 @@ bool SUS_Board::game_is_over(Player<char>* player)
     return n_moves == 9;
 }
 
-bool SUS_Board::is_position_available(int number, bool is_player1)
+
+int SUS_Board::check_status()
 {
-    if (number < 1 || number > 9) return false;
-
-    int x = (number - 1) / 3;
-    int y = (number - 1) % 3;
-
-    return board[x][y] == ' ';
+    if (n_moves < 9)
+        return 1;  // Game ongoing
+    if (score_S > score_U)
+        return 2;  // 'S' wins 
+    if (score_S < score_U)
+        return -2; //'U' wins 
+    if (score_S == score_U)
+        return 0; //Draw 
 }
 
-vector<int> SUS_Board::get_available_position(bool is_player1)
+int SUS_Board::minimax(int& x, int& y, bool isMaximizing, bool firstStep)
 {
-    vector<int> available;
-    for (int i = 0; i < 3; ++i)
+    int max_score = INT_MIN;
+    int min_score = INT_MAX;
+    int Final_x , Final_y ; 
+
+    int result = check_status();
+    if (result != 1)
+        return score_S - score_U;
+
+    for (int i = 0; i < 3; i++)
     {
-        for (int j = 0; j < 3; ++j)
+        for (int j = 0; j < 3; j++)
         {
             if (board[i][j] == ' ')
             {
-                available.push_back(i * 3 + j + 1);
+                // ---------------- BACKUP ----------------
+                char backup_cell = board[i][j];
+                int backup_moves = n_moves;
+                int backup_scoreS = score_S;
+                int backup_scoreU = score_U;
+                int backup_total = total_sus_count;
+
+                // ---------------- APPLY MOVE ----------------
+                char symbol = (isMaximizing ? 'S' : 'U');
+                board[i][j] = symbol;
+                n_moves++;
+
+                int prev_total = total_sus_count;
+                int new_total = count_SUS_sequences();
+                int gained = new_total - prev_total;
+
+                if (gained > 0)
+                {
+                    if (symbol == 'S') score_S += gained;
+                    else score_U += gained;
+                }
+                total_sus_count = new_total;
+
+                // ---------------- RECURSION ----------------
+                int score = minimax(x, y, !isMaximizing, false);
+
+                // ---------------- UNDO ----------------
+                board[i][j] = backup_cell;
+                n_moves = backup_moves;
+                score_S = backup_scoreS;
+                score_U = backup_scoreU;
+                total_sus_count = backup_total;
+
+                // ---------------- CHOOSE BEST ----------------
+                if (isMaximizing)
+                {
+                    if (score >= max_score)
+                    {
+                        max_score = score;
+                        Final_x = i;
+                        Final_y = j;
+                    }
+                }
+                else
+                {
+                    if (score <= min_score)
+                    {
+                        min_score = score;
+                        Final_x = i;
+                        Final_y = j;
+                    }
+                }
             }
         }
     }
-    return available;
+
+    if (firstStep)
+    {
+       x = Final_x;
+       y = Final_y;
+    }
+
+    return isMaximizing ? max_score : min_score;
 }
+
 
 // SUS_UI Implementation
 
@@ -163,61 +231,52 @@ Player<char>* SUS_UI::create_player(string& name, char symbol, PlayerType type)
 Move<char>* SUS_UI::get_move(Player<char>* player)
 {
     char player_symbol = player->get_symbol();
+    int x, y;
 
-    // COMPUTER MOVE 
+    // Ai MOVE 
     if (player->get_type() == PlayerType::COMPUTER)
     {
-        char computer_symbol = player_symbol;
-        bool is_p1 = (computer_symbol == 'S');
+        SUS_Board* board = dynamic_cast<SUS_Board*>(player->get_board_ptr());
 
-        SUS_Board* game_board = dynamic_cast<SUS_Board*>(player->get_board_ptr());
-        vector<int> available = game_board->get_available_position(is_p1);
-
-        if (available.empty())
-        {
-            return new Move<char>(0, 0, computer_symbol);
-        }
-
-        int idx = rand() % available.size();
-        int pos = available[idx];
-        int x = (pos - 1) / 3;
-        int y = (pos - 1) % 3;
-        char letter = computer_symbol;
-
-        cout << "\nComputer choose position " << pos
-            << " -> (" << x << "," << y << ") with letter " << letter << endl;
-        return new Move<char>(x, y, letter);
-    }
-    
-    //HUMAN MOVE 
-    int x, y;
-    while (true)
-    {
+        AI_Player* ai_player = new AI_Player(player_symbol, board);
+        ai_player->get_best_move(x, y);
         cout << "\n" << player->get_name()
-            << " (Your symbol is " << player_symbol << ") enter coordinates (x y): ";
+            << " (Ai) " << "his symbol is : " << player_symbol << "\n" <<  "chooses" << "(" << x << "," << y << ")\n";
 
-        if (cin >> x >> y)
-        {
-            break;
-        }
-        else
-        {
-            cout << "Invalid input! Please enter two numbers separated by a space.\n";
-            cin.clear();
-            cin.ignore(10000, '\n');
-        }
+        delete ai_player;
+        return new Move<char>(x, y, player_symbol);
     }
 
-    return new Move<char>(x, y, player_symbol);
+    //HUMAN MOVE
+    if (player->get_type() == PlayerType::HUMAN)
+    {
+        while (true)
+        {
+            cout << "\n" << player->get_name()
+                << " (Your symbol is " << player_symbol << ") enter coordinates (x y): ";
+
+            if (cin >> x >> y)
+            {
+                break;
+            }
+            else
+            {
+                cout << "Invalid input! Please enter two numbers separated by a space.\n";
+                cin.clear();
+                cin.ignore(10000, '\n');
+            }
+        }
+        return new Move<char>(x, y, player_symbol);
+    }
 }
 
 Player<char>** SUS_UI::setup_players()
 {
     Player<char>** players = new Player<char>*[2];
-    vector<string> type_options = { "Human", "Computer" };
+    vector<string> type_options = { "Human", "Ai" };
 
     // 1. Player 1
-   
+
     // Name
     string name1 = get_player_name("Player 1");
 
@@ -251,7 +310,7 @@ Player<char>** SUS_UI::setup_players()
     // 2. Player 2
 
     // Name 
-    string name2; 
+    string name2;
     name2 = get_player_name("Player 2 (uses " + string(1, symbol2) + ")");
 
     // Type
@@ -260,4 +319,14 @@ Player<char>** SUS_UI::setup_players()
     players[1] = create_player(name2, symbol2, type2);
 
     return players;
+}
+
+AI_Player::AI_Player(char symbol, SUS_Board* b) : Player<char>("AI_Player", symbol, PlayerType::COMPUTER)
+{
+    board = b;
+}
+
+void AI_Player::get_best_move(int& x, int& y)
+{
+    board->minimax(x, y, true, true);
 }
