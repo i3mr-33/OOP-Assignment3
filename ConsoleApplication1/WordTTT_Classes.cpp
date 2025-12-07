@@ -1,8 +1,8 @@
-#include "WordTTT_Classes.h"
+﻿#include "WordTTT_Classes.h"
 #include <iostream>
 #include <fstream>
 #include <algorithm>
-#include "../../OOP/OOP-Assignment3-master/ConsoleApplication1/BoardGame_Classes.h"
+#include "BoardGame_Classes.h"
 using namespace std;
 
 // ---------------- Dictionary Loader ----------------

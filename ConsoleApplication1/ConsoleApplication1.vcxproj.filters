@@ -39,13 +39,16 @@
     <ClInclude Include="4x4TicTacToe.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="ObstacleTicTacToe.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="Four-in-a-rowTicTacToe.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="DiamondTicTacToe.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Obstacles_TTT_classes.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WordTTT_Classes.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -76,9 +79,6 @@
     <ClCompile Include="4x4TicTacToe.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ObstacleTicTacToe.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="TicTacToe5x5_Classes.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -86,6 +86,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="DiamondTicTacToe.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Obstacles_TTT_classes.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WordTTT_Classes.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
