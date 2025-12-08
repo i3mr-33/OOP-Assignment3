@@ -1,0 +1,16 @@
+<map id="Obstacles_TTT_classes.h" name="Obstacles_TTT_classes.h">
+<area shape="rect" id="Node000001" title="Defines Tic&#45;Tac&#45;Toe with blocked cells." alt="" coords="63,5,237,32"/>
+<area shape="rect" id="Node000002" href="$_board_game___classes_8h.html" title=" " alt="" coords="72,80,228,107"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="151,30,153,65,147,63,149,35"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="5,155,63,181"/>
+<area shape="poly" id="edge7_Node000001_Node000004" title=" " alt="" coords="119,34,90,54,61,82,47,110,40,140,34,139,42,108,57,78,87,50,123,30"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="252,80,304,107"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="173,30,245,71,240,73,172,35"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="87,155,141,181"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="146,106,129,142,125,139,142,109"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="132,109,69,148,66,144,128,106"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="165,155,236,181"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="160,105,186,142,181,142,158,110"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="261,155,327,181"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="176,105,258,147,252,148,174,110"/>
+</map>

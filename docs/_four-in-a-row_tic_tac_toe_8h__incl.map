@@ -1,0 +1,16 @@
+<map id="Four&#45;in&#45;a&#45;rowTicTacToe.h" name="Four&#45;in&#45;a&#45;rowTicTacToe.h">
+<area shape="rect" id="Node000001" title="Defines Connect&#45;4 style gameplay." alt="" coords="54,5,223,32"/>
+<area shape="rect" id="Node000002" href="$_board_game___classes_8h.html" title=" " alt="" coords="119,80,276,107"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="150,30,180,68,175,68,148,35"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,155,59,181"/>
+<area shape="poly" id="edge6_Node000001_Node000003" title=" " alt="" coords="132,34,52,144,48,141,127,31"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="83,155,141,181"/>
+<area shape="poly" id="edge8_Node000001_Node000004" title=" " alt="" coords="131,30,119,55,109,81,106,111,109,140,104,139,101,111,104,79,114,53,128,35"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="266,155,337,181"/>
+<area shape="poly" id="edge7_Node000001_Node000005" title=" " alt="" coords="210,30,254,48,273,61,290,78,303,108,306,141,302,138,298,110,286,82,270,66,251,53,210,35"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="169,110,74,151,71,147,168,105"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="185,106,139,147,137,142,180,108"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="216,105,274,146,268,146,215,110"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="164,155,230,181"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="199,105,200,140,195,138,195,109"/>
+</map>

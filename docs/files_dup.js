@@ -1,0 +1,27 @@
+var files_dup =
+[
+    [ "4x4TicTacToe.cpp", "4x4_tic_tac_toe_8cpp.html", null ],
+    [ "4x4TicTacToe.h", "4x4_tic_tac_toe_8h.html", "4x4_tic_tac_toe_8h" ],
+    [ "BoardGame_Classes.h", "_board_game___classes_8h.html", "_board_game___classes_8h" ],
+    [ "DiamondTicTacToe.cpp", "_diamond_tic_tac_toe_8cpp.html", null ],
+    [ "DiamondTicTacToe.h", "_diamond_tic_tac_toe_8h.html", "_diamond_tic_tac_toe_8h" ],
+    [ "Four-in-a-rowTicTacToe.cpp", "_four-in-a-row_tic_tac_toe_8cpp.html", null ],
+    [ "Four-in-a-rowTicTacToe.h", "_four-in-a-row_tic_tac_toe_8h.html", "_four-in-a-row_tic_tac_toe_8h" ],
+    [ "InfinityTic-Tac-Toe.cpp", "_infinity_tic-_tac-_toe_8cpp.html", null ],
+    [ "InfinityTic-Tac-Toe.h", "_infinity_tic-_tac-_toe_8h.html", "_infinity_tic-_tac-_toe_8h" ],
+    [ "InverseTicTacToe.cpp", "_inverse_tic_tac_toe_8cpp.html", null ],
+    [ "InverseTicTacToe.h", "_inverse_tic_tac_toe_8h.html", "_inverse_tic_tac_toe_8h" ],
+    [ "main.cpp", "main_8cpp.html", "main_8cpp" ],
+    [ "NumericalTicTacToe_Classes.cpp", "_numerical_tic_tac_toe___classes_8cpp.html", null ],
+    [ "NumericalTicTacToe_Classes.h", "_numerical_tic_tac_toe___classes_8h.html", "_numerical_tic_tac_toe___classes_8h" ],
+    [ "Obstacles_TTT_classes.cpp", "_obstacles___t_t_t__classes_8cpp.html", null ],
+    [ "Obstacles_TTT_classes.h", "_obstacles___t_t_t__classes_8h.html", "_obstacles___t_t_t__classes_8h" ],
+    [ "PyramidXO_Classes.cpp", "_pyramid_x_o___classes_8cpp.html", null ],
+    [ "PyramidXO_Classes.h", "_pyramid_x_o___classes_8h.html", "_pyramid_x_o___classes_8h" ],
+    [ "SUSTicTacToe_Classes.cpp", "_s_u_s_tic_tac_toe___classes_8cpp.html", null ],
+    [ "SUSTicTacToe_Classes.h", "_s_u_s_tic_tac_toe___classes_8h.html", "_s_u_s_tic_tac_toe___classes_8h" ],
+    [ "TicTacToe5x5_Classes.cpp", "_tic_tac_toe5x5___classes_8cpp.html", null ],
+    [ "TicTacToe5x5_Classes.h", "_tic_tac_toe5x5___classes_8h.html", "_tic_tac_toe5x5___classes_8h" ],
+    [ "WordTTT_Classes.cpp", "_word_t_t_t___classes_8cpp.html", null ],
+    [ "WordTTT_Classes.h", "_word_t_t_t___classes_8h.html", "_word_t_t_t___classes_8h" ]
+];

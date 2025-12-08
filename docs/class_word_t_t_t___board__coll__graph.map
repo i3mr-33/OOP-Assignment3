@@ -1,0 +1,5 @@
+<map id="WordTTT_Board" name="WordTTT_Board">
+<area shape="rect" id="Node000001" title="Logic for Word Tic&#45;Tac&#45;Toe." alt="" coords="5,80,122,107"/>
+<area shape="rect" id="Node000002" href="$class_board.html" title=" " alt="" coords="11,5,116,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="65,46,66,80,61,79,62,50"/>
+</map>
