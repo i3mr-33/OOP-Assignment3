@@ -1,4 +1,4 @@
-
+﻿
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
@@ -332,15 +332,15 @@ void displayMenu()
     cout << "Assignment3 FCAI Board Games Collection\n";
     cout << "============================================\n";
     cout << "============================================\n";
-    cout << "1. Play Numerical Tic-Tac-Toe (Game 9)\n";
-    cout << "2. Play Inverse Tic-Tac-Toe (Game 5)\n";
-    cout << "3. Play Pyramid Tic-Tac-Toe (Game 8)\n";
-    cout << "4. PLay SUS Tic-Tac-Toe (Game 1)\n";
-    cout << "5. PLay 4x4 Tic-Tac-Toe (Game 7)\n";
-    cout << "6. Play Infinity Tic-Tac-Toe (Game 11)\n";
-    cout << "7. Play 5x5 Tic-Tac-Toe (Game 3)\n";
-    cout << "8. Play Diamond Tic-Tac-Toe (Game 6)\n";
-    cout << "9. Play Connect Four Tic-Tac-Toe (Game 2) \n";
+    cout << "1.  Play Numerical Tic-Tac-Toe (Game 9)\n";
+    cout << "2.  Play Inverse Tic-Tac-Toe (Game 5)\n";
+    cout << "3.  Play Pyramid Tic-Tac-Toe (Game 8)\n";
+    cout << "4.  PLay SUS Tic-Tac-Toe (Game 1)\n";
+    cout << "5.  PLay 4x4 Tic-Tac-Toe (Game 7)\n";
+    cout << "6.  Play Infinity Tic-Tac-Toe (Game 11)\n";
+    cout << "7.  Play 5x5 Tic-Tac-Toe (Game 3)\n";
+    cout << "8.  Play Diamond Tic-Tac-Toe (Game 6)\n";
+    cout << "9.  Play Connect Four Tic-Tac-Toe (Game 2) \n";
     cout << "10. Play Obstacles Tic-Tac-Toe (Game 10) \n";
     cout << "11. Play Word Tic-Tac-Toe (Game 4) \n";
     cout << "12. Exit Program\n";
@@ -407,7 +407,7 @@ int main()
             cout << "Goodbye!\n";
             break;
         default:
-            cout << "Invalid choice! Please enter 1 or 11.\n\n";
+            cout << "Invalid choice! Please enter (1-12).\n\n";
         }
 
     } while (choice != 12);

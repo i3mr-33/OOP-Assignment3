@@ -1,0 +1,5 @@
+<map id="AI_Player" name="AI_Player">
+<area shape="rect" id="Node000001" title="Specialized AI for SUS game since it requires specific pattern matching." alt="" coords="20,80,98,107"/>
+<area shape="rect" id="Node000002" href="$class_player.html" title=" " alt="" coords="5,5,113,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="61,46,62,80,56,79,57,50"/>
+</map>

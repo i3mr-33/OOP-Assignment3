@@ -1,0 +1,5 @@
+<map id="WordTTT_UI" name="WordTTT_UI">
+<area shape="rect" id="Node000001" title="UI specific to Word Tic&#45;Tac&#45;Toe." alt="" coords="5,80,102,107"/>
+<area shape="rect" id="Node000002" href="$class_u_i.html" title=" " alt="" coords="11,5,96,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="55,46,56,80,51,79,52,50"/>
+</map>

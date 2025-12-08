@@ -1,0 +1,23 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" href="$class_u_i.html" title=" " alt="" coords="5,233,90,260"/>
+<area shape="rect" id="Node000001" href="$class_connect___four___u_i.html" title=" " alt="" coords="153,5,277,32"/>
+<area shape="poly" id="edge13_Node000000_Node000001" title=" " alt="" coords="51,218,61,179,77,132,102,84,136,42,156,30,153,35,139,46,106,87,82,134,66,180,56,219"/>
+<area shape="rect" id="Node000002" href="$class_diamond_tic_tac_toe___u_i.html" title=" " alt="" coords="138,56,292,83"/>
+<area shape="poly" id="edge14_Node000000_Node000002" title=" " alt="" coords="56,217,85,155,108,121,136,93,158,81,155,85,139,97,112,125,90,157,61,219"/>
+<area shape="rect" id="Node000003" href="$class_infinity___u_i.html" title="UI for Infinity Tic&#45;Tac&#45;Toe." alt="" coords="174,107,256,133"/>
+<area shape="poly" id="edge15_Node000000_Node000003" title=" " alt="" coords="63,219,94,180,136,143,176,127,172,131,139,148,98,184,68,222"/>
+<area shape="rect" id="Node000004" href="$class_inverse_tic_tac_toe___u_i.html" title="User Interface for Inverse Tic&#45;Tac&#45;Toe." alt="" coords="142,157,288,184"/>
+<area shape="poly" id="edge16_Node000000_Node000004" title=" " alt="" coords="82,223,137,194,169,183,165,187,139,198,85,227"/>
+<area shape="rect" id="Node000005" href="$class_obstacles___u_i.html" title="UI tailored to display obstacles clearly." alt="" coords="164,208,266,235"/>
+<area shape="poly" id="edge17_Node000000_Node000005" title=" " alt="" coords="103,236,165,227,162,231,106,240"/>
+<area shape="rect" id="Node000006" href="$class_pyramid_x_o___u_i.html" title=" " alt="" coords="160,259,270,285"/>
+<area shape="poly" id="edge18_Node000000_Node000006" title=" " alt="" coords="104,253,162,262,158,265,106,258"/>
+<area shape="rect" id="Node000007" href="$class_s_u_s___u_i.html" title=" " alt="" coords="180,309,250,336"/>
+<area shape="poly" id="edge19_Node000000_Node000007" title=" " alt="" coords="83,266,139,295,182,312,177,314,137,300,84,271"/>
+<area shape="rect" id="Node000008" href="$class_tic_tac_toe4x4___u_i.html" title=" " alt="" coords="153,360,276,387"/>
+<area shape="poly" id="edge20_Node000000_Node000008" title=" " alt="" coords="66,270,98,310,139,346,163,359,157,360,136,350,94,313,66,275"/>
+<area shape="rect" id="Node000009" href="$class_tic_tac_toe5x5___u_i.html" title=" " alt="" coords="153,411,276,437"/>
+<area shape="poly" id="edge21_Node000000_Node000009" title=" " alt="" coords="59,272,90,336,112,369,139,397,159,410,154,410,136,401,108,372,85,339,58,278"/>
+<area shape="rect" id="Node000010" href="$class_word_t_t_t___u_i.html" title="UI specific to Word Tic&#45;Tac&#45;Toe." alt="" coords="167,461,263,488"/>
+<area shape="poly" id="edge22_Node000000_Node000010" title=" " alt="" coords="54,272,66,313,82,359,106,407,139,447,169,466,163,466,136,451,102,410,77,362,61,314,53,277"/>
+</map>

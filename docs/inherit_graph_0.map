@@ -1,0 +1,23 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" href="$class_board.html" title=" " alt="" coords="5,233,110,260"/>
+<area shape="rect" id="Node000001" href="$class_connect___four___board.html" title=" " alt="" coords="173,5,317,32"/>
+<area shape="poly" id="edge1_Node000000_Node000001" title=" " alt="" coords="62,218,74,178,92,131,119,83,156,42,178,30,174,35,159,46,124,86,97,133,79,180,67,219"/>
+<area shape="rect" id="Node000002" href="$class_diamond_tic_tac_toe___board.html" title=" " alt="" coords="158,56,332,83"/>
+<area shape="poly" id="edge2_Node000000_Node000002" title=" " alt="" coords="67,218,101,155,126,121,156,93,180,81,176,85,159,97,130,125,105,158,72,220"/>
+<area shape="rect" id="Node000003" href="$class_infinity___board.html" title="Board logic for Infinity Tic&#45;Tac&#45;Toe." alt="" coords="194,107,296,133"/>
+<area shape="poly" id="edge3_Node000000_Node000003" title=" " alt="" coords="75,220,110,180,156,143,195,128,192,132,159,148,114,184,80,222"/>
+<area shape="rect" id="Node000004" href="$class_inverse_tic_tac_toe___board.html" title="Logic for Inverse Tic&#45;Tac&#45;Toe." alt="" coords="162,157,328,184"/>
+<area shape="poly" id="edge4_Node000000_Node000004" title=" " alt="" coords="94,224,157,194,193,183,189,186,159,198,97,228"/>
+<area shape="rect" id="Node000005" href="$class_obstacles___board.html" title="A board that initializes with random unplayable cells." alt="" coords="184,208,306,235"/>
+<area shape="poly" id="edge5_Node000000_Node000005" title=" " alt="" coords="124,235,186,228,182,231,126,240"/>
+<area shape="rect" id="Node000006" href="$class_pyramid_x___o___board.html" title=" " alt="" coords="177,259,313,285"/>
+<area shape="poly" id="edge6_Node000000_Node000006" title=" " alt="" coords="124,253,178,261,174,264,126,258"/>
+<area shape="rect" id="Node000007" href="$class_s_u_s___board.html" title="Logic for SUS." alt="" coords="200,309,290,336"/>
+<area shape="poly" id="edge7_Node000000_Node000007" title=" " alt="" coords="95,265,159,295,202,310,197,312,157,300,96,270"/>
+<area shape="rect" id="Node000008" href="$class_tic_tac_toe4x4___board.html" title="Logic for 4x4 board." alt="" coords="173,360,316,387"/>
+<area shape="poly" id="edge8_Node000000_Node000008" title=" " alt="" coords="78,270,114,309,159,346,185,359,180,360,156,350,110,313,77,275"/>
+<area shape="rect" id="Node000009" href="$class_tic_tac_toe5x5___board.html" title="5x5 Grid logic." alt="" coords="173,411,316,437"/>
+<area shape="poly" id="edge9_Node000000_Node000009" title=" " alt="" coords="70,272,105,336,130,369,159,397,181,410,175,410,156,401,126,372,101,339,69,277"/>
+<area shape="rect" id="Node000010" href="$class_word_t_t_t___board.html" title="Logic for Word Tic&#45;Tac&#45;Toe." alt="" coords="187,461,303,488"/>
+<area shape="poly" id="edge10_Node000000_Node000010" title=" " alt="" coords="65,272,79,313,97,360,124,407,159,447,189,465,183,465,156,451,119,410,92,362,74,315,65,278"/>
+</map>
