@@ -110,6 +110,7 @@ public:
      * @return A pointer to a new `Move<char>` object representing the player's action.
      */
     virtual Move<char>* get_move(Player<char>* player);
+    Player<char>** setup_players();
 };
 
 #endif // XO_CLASSES_H

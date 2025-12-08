@@ -407,7 +407,7 @@ int main()
             cout << "Goodbye!\n";
             break;
         default:
-            cout << "Invalid choice! Please enter 1 or 11.\n\n";
+            cout << "Invalid choice! Please enter (1-12).\n\n";
         }
 
     } while (choice != 12);
