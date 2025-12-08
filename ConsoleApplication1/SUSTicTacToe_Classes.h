@@ -16,8 +16,8 @@ public:
     SUS_Board();
 
     int count_SUS_sequences();
-    int minimax(int& x, int& y, bool isMaximizing, bool firstStep);
-    int check_status(); 
+    int minimax(int& x, int& y, bool isMaximizing, bool firstStep );
+    int check_status();
 
     bool update_board(Move<char>* move) ;
     bool is_win(Player<char>* player) ;
