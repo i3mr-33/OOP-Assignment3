@@ -341,9 +341,9 @@ void displayMenu()
     cout << "7. Play 5x5 Tic-Tac-Toe (Game 3)\n";
     cout << "8. Play Diamond Tic-Tac-Toe (Game 6)\n";
     cout << "9. Play Connect Four Tic-Tac-Toe (Game 2) \n";
-    cout << "10. Play Obstacles Tic-Tac-Toe (Game 10) \n";
-    cout << "11. Play Word Tic-Tac-Toe (Game 4) \n";
-    cout << "12. Exit Program\n";
+    cout << "10.Play Obstacles Tic-Tac-Toe (Game 10) \n";
+    cout << "11.Play Word Tic-Tac-Toe (Game 4) \n";
+    cout << "12.Exit Program\n";
     cout << "============================================\n";
     cout << "Enter your choice (1-12): ";
 
@@ -407,7 +407,7 @@ int main()
             cout << "Goodbye!\n";
             break;
         default:
-            cout << "Invalid choice! Please enter 1 or 11.\n\n";
+            cout << "Invalid choice! Please enter (1-12).\n\n";
         }
 
     } while (choice != 12);

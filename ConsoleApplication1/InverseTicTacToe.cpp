@@ -92,7 +92,7 @@ int InverseTicTacToe_Board::check_status() {
 }
 int InverseTicTacToe_Board::minimax(int& x, int& y, bool is_maximizing, bool first_time) {
     int max_score = INT_MIN, min_score = INT_MAX;
-    int best_i, best_j;
+    int best_i =-1, best_j =-1;
     int result = check_status();
     if (result != 1)
     {
@@ -133,7 +133,8 @@ int InverseTicTacToe_Board::minimax(int& x, int& y, bool is_maximizing, bool fir
     }
     if (first_time)
     {
-        x = best_i, y = best_j;
+        x = best_i;
+        y = best_j;
     }
     return (is_maximizing ? max_score : min_score);
 }
@@ -150,7 +151,7 @@ Player<char>* InverseTicTacToe_UI::create_player(string& name, char symbol, Play
 }
 
 Move<char>* InverseTicTacToe_UI::get_move(Player<char>* player) {
-    int x, y;
+    int x = -1, y = -1;
 
     if (player->get_type() == PlayerType::HUMAN) {
         cout << "\nPlease enter your move x and y (0 to 2): ";
