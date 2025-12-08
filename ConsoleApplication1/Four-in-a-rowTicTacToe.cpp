@@ -239,6 +239,8 @@ int Connect_Four_Board::minimax4(int& best_col, bool isMaximizing, int depth,int
             for (int r = rows - 1; r >= 0; r--)
                 if (board[r][col] == ' ') { row = r; break; }
 
+            if (row == -1) continue;
+
             board[row][col] = ai_symbol;
             n_moves++;
 
