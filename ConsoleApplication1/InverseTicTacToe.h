@@ -45,7 +45,7 @@ public:
      * @param player Pointer to the player being checked.
      * @return true if the player has a winning line, false otherwise.
      */
-    bool is_win(Player<char>* player) { return false; };
+    bool is_win(Player<char>* player)override;
 
     /**
      * @brief Checks if the given player has lost the game.

@@ -52,6 +52,13 @@ bool InverseTicTacToe_Board::update_board(Move<char>* move) {
     }
 }
 
+bool InverseTicTacToe_Board::is_win(Player<char>* player) {
+    char opponent_sym = (player->get_symbol() == 'X') ? 'O' : 'X';
+    Player<char> opponent("", opponent_sym, PlayerType::HUMAN);
+    opponent.set_board_ptr(this);
+    return is_lose(&opponent);
+}
+
 bool InverseTicTacToe_Board::is_lose(Player<char>* player) {
     const char sym = player->get_symbol();
 
