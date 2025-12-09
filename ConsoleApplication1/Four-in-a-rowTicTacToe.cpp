@@ -131,12 +131,7 @@ bool Connect_Four_Board::game_is_over(Player<char>* player)
     return is_win(player) || is_lose(player) || is_draw(player); 
 }
 
-bool Connect_Four_Board::is_position_available(int number, bool is_player1)
-{
-    int col = number ; 
-    if (col < 0 || col >= columns) return false; 
-    return board[0][col] == ' '; 
-}
+
 vector<int> Connect_Four_Board::get_available_position(bool is_player1)
 {
     vector<int> is_available;
@@ -147,6 +142,150 @@ vector<int> Connect_Four_Board::get_available_position(bool is_player1)
     }
     return is_available; 
 }
+
+int Connect_Four_Board::Connnect_Four_check_status()
+{
+    if (check_Four('X'))       
+        return 2;
+    if (check_Four('O'))       
+        return -2;
+    if (n_moves == rows * columns)  
+        return 0;
+    return 1; 
+}
+
+
+int Connect_Four_Board::evaluate_board(char ai_symbol, char human_symbol)
+{
+    int score = 0;
+    int ROWS = 6, COLS = 7;
+
+    // 1️⃣ Give preference to the center column
+    int centerCol = COLS / 2;
+    for (int r = 0; r < ROWS; r++)
+        if (board[r][centerCol] == ai_symbol)
+            score += 6;  // reward AI for occupying the center
+
+    // Lambda function to evaluate a line of 4 cells
+    auto evaluate_line = [&](char a, char b, char c, char d) -> int {
+        int ai_count = 0, human_count = 0;
+        char cells[4] = { a, b, c, d };
+        for (int i = 0; i < 4; i++) {
+            if (cells[i] == ai_symbol) ai_count++;      // count AI pieces
+            else if (cells[i] == human_symbol) human_count++; // count opponent pieces
+        }
+
+        // Score AI opportunities
+        if (ai_count > 0 && human_count == 0) { // AI can potentially win here
+            if (ai_count == 4) return 10000;  // immediate win
+            if (ai_count == 3) return 500;    // strong threat
+            if (ai_count == 2) return 50;     // good chance
+        }
+
+        // Score opponent threats
+        if (human_count > 0 && ai_count == 0) { // block opponent
+            if (human_count == 4) return -10000; // prevent immediate loss
+            if (human_count == 3) return -800;   // block strong threat
+            if (human_count == 2) return -50;    // block small chance
+        }
+
+        return 0; // neutral line
+        };
+
+    for (int r = 0; r < ROWS; r++)       // Horizontal
+        for (int c = 0; c <= COLS - 4; c++)
+            score += evaluate_line(board[r][c], board[r][c + 1], board[r][c + 2], board[r][c + 3]);
+
+    for (int c = 0; c < COLS; c++)       // Vertical
+        for (int r = 0; r <= ROWS - 4; r++)
+            score += evaluate_line(board[r][c], board[r + 1][c], board[r + 2][c], board[r + 3][c]);
+
+    for (int r = 3; r < ROWS; r++)       // Diagonal 
+        for (int c = 0; c <= COLS - 4; c++)
+            score += evaluate_line(board[r][c], board[r - 1][c + 1], board[r - 2][c + 2], board[r - 3][c + 3]);
+
+    for (int r = 0; r <= ROWS - 4; r++)    // Diagonal 
+                for (int c = 0; c <= COLS-4; c++)
+        score += evaluate_line(board[r][c], board[r + 1][c + 1], board[r + 2][c + 2], board[r + 3][c + 3]);
+
+    return score;
+}
+
+
+
+
+// Minimax with alpha-beta pruning
+int Connect_Four_Board::minimax4(int& best_col, bool isMaximizing, int depth,int alpha = -10000, int beta = 10000,int original_depth = -1)
+{
+    char ai_symbol = 'X';
+    char human_symbol = 'O';
+
+    if (original_depth == -1) original_depth = depth; 
+
+    int status = Connnect_Four_check_status();
+    if (status != 1 || depth == 0)
+    {
+        return evaluate_board(ai_symbol, human_symbol);
+    }
+
+    vector<int> moves = get_available_position(isMaximizing);
+
+    if (isMaximizing)
+    {
+        int maxEval = -10000;
+        for (int col : moves)
+        {
+            int row = -1;
+            for (int r = rows - 1; r >= 0; r--)
+                if (board[r][col] == ' ') { row = r; break; }
+
+            if (row == -1) continue;
+
+            board[row][col] = ai_symbol;
+            n_moves++;
+
+            int eval = minimax4(best_col, false, depth - 1, alpha, beta, original_depth);
+
+            board[row][col] = ' ';
+            n_moves--;
+
+            if (eval > maxEval)
+            {
+                maxEval = eval;
+                if (depth == original_depth)
+                    best_col = col;
+            }
+
+            alpha = max(alpha, eval);
+            if (beta <= alpha) break; // pruning
+        }
+        return maxEval;
+    }
+    else
+    {
+        int minEval = 10000;
+        for (int col : moves)
+        {
+            int row = -1;
+            for (int r = rows - 1; r >= 0; r--)
+                if (board[r][col] == ' ') { row = r; break; }
+
+            board[row][col] = human_symbol;
+            n_moves++;
+
+            int eval = minimax4(best_col, true, depth - 1, alpha, beta, original_depth);
+
+            board[row][col] = ' ';
+            n_moves--;
+
+            minEval = min(minEval, eval);
+            beta = min(beta, eval);
+            if (beta <= alpha) break; // pruning
+        }
+        return minEval;
+    }
+}
+
 
 
 Connect_Four_UI::Connect_Four_UI() : UI<char>("Welcome to Connect Four Game!", 3) {}
@@ -184,48 +323,52 @@ Player<char>* Connect_Four_UI::create_player(string& name, char symbol, PlayerTy
 Move<char>* Connect_Four_UI::get_move(Player<char>* player)
 {
     char player_symbol = player->get_symbol();
+    int y = 0;  
+    int best_col = -1;
 
-    // COMPUTER MOVE
+    // AI MOVE
     if (player->get_type() == PlayerType::COMPUTER)
     {
-        Connect_Four_Board* board =
-            dynamic_cast<Connect_Four_Board*>(player->get_board_ptr());
+        Connect_Four_Board* board = dynamic_cast<Connect_Four_Board*>(player->get_board_ptr());
 
-        vector<int> available = board->get_available_position(true);
+        string ai_name = player->get_name();
+        cout << "\n" << ai_name << " (Ai) " << " is thinking..." << endl;
 
-        int col = available[rand() % available.size()];
-        cout << "\nComputer chooses column " << col + 1 << endl;
+        Connect_Four_AI_Player* ai_player = new Connect_Four_AI_Player(player_symbol, board);
+        ai_player->get_best_move4(best_col);
+        cout << "\n" << ai_name << " (Ai) his symbol is: " << player_symbol
+            << "\nchooses column " << best_col << endl;
 
-        return new Move<char>(col + 1, 0, player_symbol); 
+        delete ai_player;
+        return new Move<char>(best_col, y, player_symbol);
     }
 
-    // HUMAN MOVE 
-    int col;
-    while (true)
+    // HUMAN MOVE
+    if (player->get_type() == PlayerType::HUMAN)
     {
-        cout << "\n" << player->get_name()
-            << " (Your symbol is " << player_symbol
-            << ") choose a column (0 to 6): ";
+        int col;
+        while (true)
+        {
+            cout << "\n" << player->get_name()
+                << " (Your symbol is " << player_symbol << ") choose a column (0-6): ";
 
-        if (cin >> col && col >= 0 && col <= 6)
-        {
-            break;
+            if (cin >> col && col >= 0 && col <= 6)
+                break;
+            else
+            {
+                cout << "Invalid input! Please enter a number between 0 and 6.\n";
+                cin.clear();
+                cin.ignore(10000, '\n');
+            }
         }
-        else
-        {
-            cout << "Invalid input! Please enter a number between 0 and 6.\n";
-            cin.clear();
-            cin.ignore(10000, '\n');
-        }
+        return new Move<char>(col, y, player_symbol);
     }
-
-    return new Move<char>(col, 0, player_symbol); 
 }
 
 Player<char>** Connect_Four_UI::setup_players()
 {
     Player<char>** players = new Player<char>*[2];
-    vector<string> type_options = { "Human", "Computer" };
+    vector<string> type_options = { "Human", "Ai" };
 
     // 1. Player 1
 
@@ -272,3 +415,20 @@ Player<char>** Connect_Four_UI::setup_players()
 
     return players;
 }
+
+Connect_Four_AI_Player::Connect_Four_AI_Player(char symbol, Connect_Four_Board* b) : Player<char>("AI_Player", symbol, PlayerType::COMPUTER)
+{
+    board = b;
+}
+
+void Connect_Four_AI_Player::get_best_move4(int& best_col)
+{
+    int depth = 9 ;      
+    board->minimax4(best_col, true, depth);
+
+    vector<int> moves = board->get_available_position(true);
+    if (find(moves.begin(), moves.end(), best_col) == moves.end()) {
+        best_col = moves[0];
+    }
+}
+

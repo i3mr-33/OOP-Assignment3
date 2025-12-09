@@ -329,9 +329,6 @@ void playWordTicTacToe()
 void displayMenu()
 {
     cout << "============================================\n";
-    cout << "Assignment3 FCAI Board Games Collection\n";
-    cout << "============================================\n";
-    cout << "============================================\n";
     cout << "1.  Play Numerical Tic-Tac-Toe (Game 9)\n";
     cout << "2.  Play Inverse Tic-Tac-Toe (Game 5)\n";
     cout << "3.  Play Pyramid Tic-Tac-Toe (Game 8)\n";
