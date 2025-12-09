@@ -425,5 +425,10 @@ void Connect_Four_AI_Player::get_best_move4(int& best_col)
 {
     int depth = 9 ;      
     board->minimax4(best_col, true, depth);
+
+    vector<int> moves = board->get_available_position(true);
+    if (find(moves.begin(), moves.end(), best_col) == moves.end()) {
+        best_col = moves[0];
+    }
 }
 
