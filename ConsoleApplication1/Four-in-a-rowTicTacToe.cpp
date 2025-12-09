@@ -344,7 +344,7 @@ Move<char>* Connect_Four_UI::get_move(Player<char>* player)
     }
 
     // HUMAN MOVE
-    if (player->get_type() == PlayerType::HUMAN)
+    else if (player->get_type() == PlayerType::HUMAN)
     {
         int col;
         while (true)

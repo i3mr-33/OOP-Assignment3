@@ -238,6 +238,9 @@ Move<char>* SUS_UI::get_move(Player<char>* player)
     {
         SUS_Board* board = dynamic_cast<SUS_Board*>(player->get_board_ptr());
 
+        string ai_name = player->get_name();
+        cout << "\n" << ai_name << " (Ai) " << " is thinking..." << endl;
+
         AI_Player* ai_player = new AI_Player(player_symbol, board);
         ai_player->get_best_move(x, y);
         cout << "\n" << player->get_name()
@@ -248,7 +251,7 @@ Move<char>* SUS_UI::get_move(Player<char>* player)
     }
 
     //HUMAN MOVE
-    if (player->get_type() == PlayerType::HUMAN)
+    else if (player->get_type() == PlayerType::HUMAN)
     {
         while (true)
         {
