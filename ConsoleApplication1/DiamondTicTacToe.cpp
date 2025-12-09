@@ -179,23 +179,24 @@ int DiamondTicTacToe_Board::check_status() {
     Player<char> O_player("O", 'O', PlayerType::COMPUTER);
     X_player.set_board_ptr(this);
     O_player.set_board_ptr(this);
-    if (is_win(&X_player)) return 2;
-    if (is_win(&O_player)) return -2;
-    for (int i = 0; i < rows; ++i) {
-        for (int j = 0; j < columns; ++j) {
+    if (is_win(&X_player)) return 2;     // 2: X Player Wins
+    if (is_win(&O_player)) return -2;    // -2: O Player Wins
+    // If any valid, blank cell exists, the game continues.
+    for (int i = 0; i < rows; ++i) {        
+        for (int j = 0; j < columns; ++j) { 
             if (is_valid_cell(i, j) && board[i][j] == blank_symbol) {
-                return 1;
+                return 1;         // 1: Game continues
             }
         }
     }
-    return 0;
+    return 0;         // 0: Draw
 }
 
 int DiamondTicTacToe_Board::minimax(int& x, int& y, bool is_maximizing, bool first_time, int depth) {
     int best_score = is_maximizing ? INT_MIN : INT_MAX;
     int best_i = -1, best_j = -1;
     int result = check_status();
-    if (result != 1 || depth >= 2) {
+    if (result != 1 || depth >= 4) {
         return result;
     }
     for (int i = 0; i < rows; i++) {
@@ -260,6 +261,7 @@ Move<char>* DiamondTicTacToe_UI::get_move(Player<char>* player) {
     else if (player->get_type() == PlayerType::COMPUTER) {
         DiamondTicTacToe_Board* board_ptr = dynamic_cast<DiamondTicTacToe_Board*>(player->get_board_ptr());
         bool is_maximizing = (player->get_symbol() == 'X');
+        cout << "\n" << player->get_name() << " (Ai) " << " is thinking..." << endl;
         if (board_ptr) {
             board_ptr->minimax(x, y, is_maximizing, true, 0);
             cout << "\n" << player->get_name() << " (Ai) " << "chooses move : (" << x << ", " << y << ")\n";
