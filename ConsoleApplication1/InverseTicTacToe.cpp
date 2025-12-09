@@ -1,5 +1,3 @@
-//--------------------------------------- IMPLEMENTATION
-
 #include <iostream>
 #include <iomanip>
 #include <cctype>  // for toupper()
@@ -7,6 +5,8 @@
 #include "InverseTicTacToe.h"
 
 using namespace std;
+
+//====================== InverseTicTacToe_Board Implementation ======================
 
 InverseTicTacToe_Board::InverseTicTacToe_Board() : Board(3, 3) {
     // Initialize all cells with blank_symbol
@@ -92,10 +92,10 @@ bool InverseTicTacToe_Board::game_is_over(Player<char>* player) {
 int InverseTicTacToe_Board::check_status() {
     Player<char> X_player("X", 'X', PlayerType::COMPUTER);
     Player<char> O_player("O", 'O', PlayerType::COMPUTER);
-    if (is_lose(&O_player)) return 2;
-    if (is_lose(&X_player)) return -2;
-    if (n_moves == rows * columns) return 0;
-    return 1;
+    if (is_lose(&O_player)) return 2;          // 2: X Wins (O loses)
+    if (is_lose(&X_player)) return -2;         // -2: O Wins (X loses)
+    if (n_moves == rows * columns) return 0;   // 0: Draw
+    return 1;       // 1: Game continues
 }
 int InverseTicTacToe_Board::minimax(int& x, int& y, bool is_maximizing, bool first_time) {
     int max_score = INT_MIN, min_score = INT_MAX;
@@ -145,7 +145,8 @@ int InverseTicTacToe_Board::minimax(int& x, int& y, bool is_maximizing, bool fir
     }
     return (is_maximizing ? max_score : min_score);
 }
-//--------------------------------------- XO_UI Implementation
+
+//====================== InverseTicTacToe_UI Implementation ======================
 
 InverseTicTacToe_UI::InverseTicTacToe_UI() : UI<char>("Welcome to Inverse Tic - Tac - Toe Game!", 3) {}
 

@@ -113,5 +113,5 @@ public:
     Player<char>** setup_players();
 };
 
-#endif // XO_CLASSES_H
+#endif // InverseTicTacToe_CLASSES_H
 #pragma once
