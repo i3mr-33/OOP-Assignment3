@@ -41,11 +41,13 @@ bool Obstacles_Board::update_board(Move<char>* move) {
 
     // Validate coordinates
     if (x < 0 || x >= rows || y < 0 || y >= columns) {
+        cout << " Invalid position! Coordinates must be within board limits (0-5).\n";
         return false;
     }
 
     // Check if cell is empty
     if (board[x][y] != blank_symbol) {
+        cout << " Cell is occupied!\n";
         return false;
     }
 
