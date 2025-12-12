@@ -141,12 +141,20 @@ Move<int>* NumericalTicTacToe_UI::get_move(Player<int>* player) {
         NumericalTicTacToe_Board* game_board = dynamic_cast<NumericalTicTacToe_Board*>(player->get_board_ptr());
         vector<int> available_nums = game_board->get_available_numbers(is_player1);
 
-        cout << "Available numbers: ";
-        for (int num : available_nums) {
-            cout << num << " ";
+        while (true) {
+            cout << "Available numbers for you: ";
+            for (int num : available_nums) cout << num << " ";
+            cout << "\nEnter your number: ";
+            cin >> number;
+
+            // Check if the number is in the available list
+            if (find(available_nums.begin(), available_nums.end(), number) != available_nums.end()) {
+                break; // Number is valid, exit the loop
+            }
+            else {
+                cout << "Invalid number! Please choose a number from your list.\n";
+            }
         }
-        cout << "\nEnter your number: ";
-        cin >> number;
     }
     else { // COMPUTER player
         NumericalTicTacToe_Board* game_board = dynamic_cast<NumericalTicTacToe_Board*>(player->get_board_ptr());
