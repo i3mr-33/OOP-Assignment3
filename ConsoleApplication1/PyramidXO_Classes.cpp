@@ -57,16 +57,6 @@ bool PyramidX_O_Board::update_board(Move<char>* move) {
         return false;
     }
 
-    if (mark == 0) { // Undo move logic
-        if (board[x][y] != blank_symbol) {
-            n_moves--;
-            board[x][y] = blank_symbol;
-            return true;
-        }
-        cout << "Cannot undo - cell is already empty!\n";
-        return false;
-    }
-    else {         // Apply move logic
         if (board[x][y] == blank_symbol) {
             n_moves++;
             board[x][y] = toupper(mark);
@@ -74,7 +64,6 @@ bool PyramidX_O_Board::update_board(Move<char>* move) {
         }
         cout << "Cell is occupied!\n";
         return false;
-    }
 }
 
 /**

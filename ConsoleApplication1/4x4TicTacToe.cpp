@@ -60,15 +60,25 @@ bool TicTacToe4x4_Board::update_board(Move<char>* move) {
     // Boundary Check
     if (src_r < 0 || src_r >= 4 || src_c < 0 || src_c >= 4 ||
         dest_r < 0 || dest_r >= 4 || dest_c < 0 || dest_c >= 4)
+    {
+        cout << "Move out of bounds!\n";
         return false;
+    }
 
     // Check if player owns the source piece
     if (board[src_r][src_c] != symbol)
+    {
+		cout << "Source cell does not contain your piece!\n";
         return false;
+    }
 
     // Check if destination is empty
     if (board[dest_r][dest_c] != blank_symbol)
+    {
+		cout << "Destination cell is not empty!\n";
         return false;
+    }
+    
 
     // Check Adjacency (must be 1 step orthogonal)
     int row_diff = abs(dest_r - src_r);
@@ -80,6 +90,7 @@ bool TicTacToe4x4_Board::update_board(Move<char>* move) {
         n_moves++;
         return true;
     }
+	cout << "Destination cell is not adjacent!\n";
     return false;
 }
 
