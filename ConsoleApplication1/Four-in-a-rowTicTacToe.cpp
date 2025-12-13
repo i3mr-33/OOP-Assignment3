@@ -423,7 +423,8 @@ Connect_Four_AI_Player::Connect_Four_AI_Player(char symbol, Connect_Four_Board* 
 
 void Connect_Four_AI_Player::get_best_move4(int& best_col)
 {
-    int depth = 9 ;      
+    int MAX_DEPTH = 9; 
+    int depth = MAX_DEPTH;
     board->minimax4(best_col, true, depth);
 
     vector<int> moves = board->get_available_position(true);
