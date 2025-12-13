@@ -328,7 +328,7 @@ void playWordTicTacToe()
 }
 void displayMenu()
 {
-    cout << "============================================\n";
+    cout << "===========================================\n";
     cout << "1.  Play Numerical Tic-Tac-Toe \n";
     cout << "2.  Play Inverse Tic-Tac-Toe \n";
     cout << "3.  Play Pyramid Tic-Tac-Toe \n";
@@ -341,7 +341,7 @@ void displayMenu()
     cout << "10. Play Obstacles Tic-Tac-Toe  \n";
     cout << "11. Play Word Tic-Tac-Toe  \n";
     cout << "12. Exit Program\n";
-    cout << "============================================\n";
+    cout << "===========================================\n";
     cout << "Enter your choice (1-12): ";
 
 }
@@ -353,7 +353,7 @@ int main()
     // Seed random number generator for the entire program
     srand(static_cast<unsigned int>(time(0)));
 
-    cout << "Welcome to FCAI Board Games - Assignment 3\n";
+    cout << "        Welcome to FCAI Board Games\n";
 
     do
     {
