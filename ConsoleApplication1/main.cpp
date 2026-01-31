@@ -20,6 +20,11 @@ using namespace std;
 void playNumericalTicTacToe()
 {
     cout << "\n=== Starting Numerical Tic-Tac-Toe ===\n";
+    cout << "\nInstructions:\n";
+    cout << "Player 1 uses odd numbers (1,3,5,7,9) and Player 2 uses even numbers (2,4,6,8).\n";
+    cout << "Players take turns placing one unused number in an empty cell.\n";
+    cout << "Win by forming a row, column, or diagonal with sum = 15.\n";
+    cout << "If the board is full with no sum = 15, the game is a draw.\n\n";
 
     // Seed random number generator
     srand(static_cast<unsigned int>(time(0)));
@@ -47,6 +52,11 @@ void playNumericalTicTacToe()
 void playInverseTicTacToe()
 {
     cout << "\n=== Starting Inverse Tic-Tac-Toe ===\n";
+    cout << "\nInstructions:\n";
+    cout << "Players try to avoid forming three marks in a row, column, or diagonal.\n";
+    cout << "A player loses if they complete a line of three of their own marks.\n";
+    cout << "If the board is full and no line is formed, the game is a draw.\n\n";
+
     srand(static_cast<unsigned int>(time(0))); // Seed the random number generator
 
     // Create an instance of the specific UI for X-O using a pointer
@@ -74,6 +84,10 @@ void playPyramidXO()
 {
 
     cout << "\n=== Starting Pyramid Tic-Tac-Toe ===\n";
+    cout << "\nInstructions:\n";
+    cout << "Players take turns placing their 'X' or 'O' marks in empty squares.\n";
+    cout << "The first player to place three of their marks in a row, column, or diagonal wins.\n\n";
+
 
     UI<char>* game_ui = new PyramidXO_UI();
     Board<char>* pyramid_board = new PyramidX_O_Board();
