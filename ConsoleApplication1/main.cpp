@@ -112,6 +112,13 @@ void playPyramidXO()
 void playSUS()
 {
     cout << "\n === Starting SUS Game ===\n";
+    cout << "\nInstructions:\n";
+    cout << "Players take turns placing either an S or a U in an empty square.\n";
+    cout << "Each player must use the same letter every turn.\n";
+    cout << "A player scores a point for each S-U-S sequence they create.\n";
+    cout << "The game ends when the board is full.\n";
+    cout << "The player with the most S-U-S sequences wins.\n\n";
+
 
     // Seed random number generator
     srand(static_cast<unsigned int>(time(0)));
@@ -139,6 +146,14 @@ void playSUS()
 void Play4x4()
 {
     cout << "\n === Starting 4x4 Tic-Tac-Toe Game ===\n";
+    cout << "\nInstructions:\n";
+    cout << "Players take turns moving one of their tokens(X or O)\n";
+    cout << "to an adjacent empty square (horizontal or vertical only).\n";
+    cout << "Tokens cannot move diagonally.\n";
+    cout << "Tokens cannot jump over other tokens.\n";
+    cout << "The first player to align three of their tokens\n";
+    cout << "in a row, column, or diagonal wins.\n\n";
+
 
     // Seed random number generator
     srand(static_cast<unsigned int>(time(0)));
@@ -166,6 +181,11 @@ void Play4x4()
 void playInfinityTicTacToe()
 {
     cout << "\n=== Starting Infinite Tic-Tac-Toe ===\n";
+    cout << "\nInstructions:\n";
+    cout << "After every three moves, the oldest mark on the board disappears.\n";
+    cout << "The first player to align three marks in a row\n";
+    cout << "before any of those marks vanish wins the game.\n\n";
+
     srand(static_cast<unsigned int>(time(0))); // Seed the random number generator
 
     // Create an instance of the specific UI for X-O using a pointer
@@ -192,6 +212,12 @@ void playInfinityTicTacToe()
 void play5x5TicTacToe()
 {
     cout << "\n=== Starting 5x5 Tic-Tac-Toe ===\n";
+    cout << "\nInstructions:\n";
+    cout << "Players take turns placing their mark in an empty square.\n";
+    cout << "The game continues until only one square remains empty.\n";
+    cout << "This results in a total of 24 moves.\n";
+    cout << "Each player makes 12 moves.\n\n";
+
     srand(static_cast<unsigned int>(time(0))); // Seed the random number generator
 
     // Create an instance of the specific UI for X-O using a pointer
@@ -218,6 +244,15 @@ void play5x5TicTacToe()
 void playDiamondTicTacToe()
 {
     cout << "\n=== Starting Diamond Tic-Tac-Toe ===\n";
+    cout << "\nInstructions:\n";
+    cout << "Players take turns placing their 'X' or 'O' in empty cells.\n";
+    cout << "A player wins by simultaneously completing:\n";
+    cout << "- A line of three marks, and\n";
+    cout << "- A line of four marks.\n";
+    cout << "The two lines must be in different directions\n";
+    cout << "(e.g., one horizontal and one diagonal).\n";
+    cout << "The two lines may share one common mark.\n\n";
+
     srand(static_cast<unsigned int>(time(0))); // Seed the random number generator
 
     // Create an instance of the specific UI for Diamond Tic-Tac-Toe
@@ -247,6 +282,14 @@ void playDiamondTicTacToe()
 void playConnectFour()
 {
     cout << "\n === Starting Connect Four Game ===\n";
+    cout << "\nInstructions:\n";
+    cout << "The first player places an 'X' in the bottom-most square of any column.\n";
+    cout << "Subsequent players take turns placing their mark\n";
+    cout << "in the lowest available square of any column.\n";
+    cout << "The first player to get four of their marks in\n";
+    cout << "a row, horizontally, vertically, or diagonally wins.\n\n";
+    cout << "The game is a draw if the board fills without a winner.\n\n";
+
 
     // Seed random number generator
     srand(static_cast<unsigned int>(time(0)));
@@ -273,6 +316,14 @@ void playConnectFour()
 }
 void ObstacleTicTacToe() {
     cout << "\n=== Starting Obstacle Tic-Tac-Toe ===\n";
+    cout << "\nInstructions\n";
+    cout << "After every round (one turn for each player),\n";
+    cout << "two new obstacle cells are randomly added to the board.\n";
+    cout << "These cells cannot be used by either player.\n";
+    cout << "The first player to align four of their marks in \n";
+    cout << "a row, horizontally, vertically, or diagonally wins.\n";
+    cout << "The game is a draw if the board fills without a winner.\n\n";
+
     srand(static_cast<unsigned int>(time(0)));
 
     // Create game components
@@ -303,6 +354,20 @@ void ObstacleTicTacToe() {
 }
 void playWordTicTacToe()
 {
+    cout << "\n=== Starting Word Tic-Tac-Toe ===\n";
+    cout << "\nInstructions:\n";
+    cout << "Players take turns placing one letter on the board.\n";
+    cout << "Players attempt to form a valid word.\n";
+    cout << "Letters already on the board can be used to build words.\n";
+    cout << "The first player to form a valid three-letter word\n";
+    cout << "horizontally, vertically, or diagonally wins.\n";
+    cout << "The game is a draw if the board is filled\n";
+    cout << "without a valid word being formed.\n";
+
+    cout << "\nAdditional Details:\n";
+    cout << "A file named dic.txt containing all valid\n";
+    cout << "three-letter words will be provided.\n\n";
+
     srand(static_cast<unsigned int>(time(0)));
 
     WordTTT_UI* ui = new WordTTT_UI();
