@@ -318,7 +318,7 @@ void ObstacleTicTacToe() {
     cout << "\n=== Starting Obstacle Tic-Tac-Toe ===\n";
     cout << "\nInstructions\n";
     cout << "After every round (one turn for each player),\n";
-    cout << "two new obstacle cells are randomly added to the board.\n";
+    cout << "two new obstacle cells are randomly added to the board (#).\n";
     cout << "These cells cannot be used by either player.\n";
     cout << "The first player to align four of their marks in \n";
     cout << "a row, horizontally, vertically, or diagonally wins.\n";
